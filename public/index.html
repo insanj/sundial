@@ -9,9 +9,18 @@
       content="Web site created using create-react-app"
     />
 
+    <meta 
+      name="google-signin-client_id" 
+      content="536519055297-nvagfvf3pjp7rui21aar1cd55khih4vq.apps.googleusercontent.com">
+
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <meta name="theme-color" content="#000000" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
+    <link rel="mask-icon" href="%PUBLIC_URL%/safari-pinned-tab.svg" color="#5e35b1">
+    <meta name="msapplication-TileColor" content="#5e35b1">
+    <meta name="theme-color" content="#5e35b1">
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
@@ -20,5 +29,33 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <script>
+      function init() {
+        gapi.load('auth2', function() {
+        });
+      }
+
+      function onSuccess(googleUser) {
+        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+      }
+
+      function onFailure(error) {
+        console.log(error);
+      }
+
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+        console.log("EMITTING EVENT");
+        const event = new CustomEvent("SundialGoogleSignIn", { detail: googleUser });
+        window.dispatchEvent(event);
+      }
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> 
   </body>
 </html>

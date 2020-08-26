@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -166,7 +166,16 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 60,
     paddingBottom: 20,
 
-    animation: '$fadeIn 3s ease'
+    animation: '$fadeIn 3s ease',
+
+    '& > .g-signin2' : {
+      width: '120px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      background: 'red',
+      textAlign: 'center',
+      transform: 'scale(1.35, 1.35)'
+    }
   },
 
   connectButton: {
@@ -180,6 +189,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.3,
     fontSize: '0.8rem',
     color: 'rgba(255,255,255,0.3)',
+    paddingTop: 15,
 
     '& > a': {
       textDecoration: 'none',
@@ -203,6 +213,35 @@ export default function SundialAuthPage({ onAuthedTokenSuccess }) {
     </svg>
   );
 
+  const onSuccess = (googleUser) => {
+    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+  }
+ 
+  const onFailure = (error) => {
+    console.log(error);
+  }
+
+  const [addedEventListener, setAddedEventListener] = React.useState(false);
+
+  useEffect(() => {
+    if (addedEventListener) {
+      return;
+    }
+
+    setAddedEventListener(true);
+    window.addEventListener("SundialGoogleSignIn", (event) => {
+      console.log("heard event = " + event);
+
+      const token = event.detail.getAuthResponse().id_token;
+      console.log("TOKEN = " + token);
+    });
+
+  });
+
+  const handleGoogleSignInSuccess = (googleUser) => {
+
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -219,9 +258,7 @@ export default function SundialAuthPage({ onAuthedTokenSuccess }) {
         </div>
 
         <div className={classes.connect}>
-          <Button className={classes.connectButton} fullWidth variant="outlined" color="secondary" size="large">
-            Connect with Google
-          </Button>
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
           <div className={classes.connectHelper}>
             Use Sundial by signing into your Google account.<br/>By clicking, you agree to the use of <a href="">cookies</a>.<br/>
