@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
       width: 'calc(30% - 15px)',
     },
 
-    [theme.breakpoints.down(795)]: {
+    [theme.breakpoints.down(870)]: {
       width: 'calc(40% - 15px)',
     },
 
@@ -28,8 +28,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 20,
 
     boxShadow: '0px 0px 20px rgba(0,0,0,0.2)',
-    background: theme.palette.primary.contrastText,
-    color: 'rgb(50,50,50,1)',
+    background: '#2f302f',
 
     textAlign: 'left',
     cursor: 'pointer',
@@ -46,13 +45,13 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     fontSize: '1.3rem',
     letterSpacing: 0,
-    color: 'rgba(0,0,0,1)'
+    color: 'rgba(255,255,255,1)'
   },
   body: {
     paddingTop: 10,
     fontSize: '1.0rem',
     lineHeight: 1.3,
-    color: 'rgba(0,0,0,0.8)'
+    color: 'rgba(255,255,255,0.8)'
 
   }
 }));
@@ -62,7 +61,7 @@ export default function SundialAuthFeatureCard({ feature }) {
 
   return (
     <div className={classes.root}>
-      <Tilt className="Tilt" options={{ perspective: 500, speed: 800, scale: 1.05 }}>
+      <Tilt className="Tilt" options={{ perspective: 800, speed: 800, scale: 1.05 }}>
         <div className={classes.card}>
           <div className="Tilt-inner">
             <div className={classes.imageContainer}>

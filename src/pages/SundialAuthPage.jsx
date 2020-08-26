@@ -1,12 +1,29 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 import SundialAuthFeaturesGrid from '../components/SundialAuthFeaturesGrid';
+import SundialFooter from '../components/SundialFooter';
 
 const useStyles = makeStyles((theme) => ({
+  '@keyframes backgroundFade': {
+    '0%': {
+      backgroundPosition: '100% 50%'
+    },
+    '50%': {
+      backgroundPosition: '0% 50%'
+    },
+    '100%': {
+      backgroundPosition: '100% 50%%'
+    }
+  },
+
   root: {
-    background: theme.palette.primary.main,
-    minHeight: '100vh'
+    minHeight: '100vh',
+
+    background: 'linear-gradient(-45deg, rgba(131,73,247,1) 0%, rgba(125,71,231,1) 5%, rgba(116,71,203,1) 11%, rgba(114,70,201,1) 23%, rgba(98,57,177,1) 42%, rgba(94,56,170,1) 48%, rgba(94,53,177,1) 52%, rgba(90,61,186,1) 66%, rgba(94,83,187,1) 83%, rgba(98,102,199,1) 100%)',
+    backgroundSize: '800% 800%',
+    animation: '$backgroundFade 8s ease infinite alternate',
   },
 
   container: {
@@ -77,7 +94,14 @@ const useStyles = makeStyles((theme) => ({
       transform: 'scale(1, 1)',
     }
   },
-
+  '@keyframes underlineFadeIn': {
+    '0%': {
+      opacity: 0.0
+    },
+    '100%': {
+      opacity: 0.2
+    }
+  },
   sundialSVG: {
     width: '150px',
     height: '150px',
@@ -121,11 +145,51 @@ const useStyles = makeStyles((theme) => ({
     
     background: theme.palette.primary.contrastText,
     opacity: 0.2,
-    animation: '$scaleToRight 1.4s ease-in'
+    animation: '$underlineFadeIn 1.5s, $scaleToRight 1.2s ease-in'
   },
 
   featuresGrid: {
     animation: '$fadeIn 3s ease-out, $moveUp 0.8s ease-in'
+  },
+
+  brand: {
+    fontWeight: 800,
+    color: theme.palette.secondary.main
+  },
+
+  connect: {
+    width: '300px',
+
+    marginLeft: 'auto',
+    marginRight: 'auto',
+
+    paddingTop: 60,
+    paddingBottom: 20,
+
+    animation: '$fadeIn 3s ease'
+  },
+
+  connectButton: {
+    fontSize: '1.3rem',
+    padding: 8,
+    marginBottom: 10,
+  },
+
+  connectHelper: {
+    textAlign: 'center',
+    lineHeight: 1.3,
+    fontSize: '0.8rem',
+    color: 'rgba(255,255,255,0.3)',
+
+    '& > a': {
+      textDecoration: 'none',
+      color: 'inherit',
+      fontWeight: 600,
+    }
+  },
+
+  footer: {
+    animation: '$fadeIn 5s ease'
   }
 }));
 
@@ -145,13 +209,27 @@ export default function SundialAuthPage({ onAuthedTokenSuccess }) {
         <div className={classes.header}>
           { sundialSVG }
           <div className={classes.headerText}>
-            <div>Welcome</div> <div>to</div> <div><b>Sundial</b></div>
+            <div>Welcome</div> <div>to</div> <div><span className={classes.brand}>Sundial</span></div>
             <div className={classes.underline}/>
           </div>
         </div>
 
         <div className={classes.featuresGrid}>
           <SundialAuthFeaturesGrid />
+        </div>
+
+        <div className={classes.connect}>
+          <Button className={classes.connectButton} fullWidth variant="outlined" color="secondary" size="large">
+            Connect with Google
+          </Button>
+
+          <div className={classes.connectHelper}>
+            Use Sundial by signing into your Google account.<br/>By clicking, you agree to the use of <a href="">cookies</a>.<br/>
+          </div>
+        </div>
+
+        <div className={classes.footer}>
+          <SundialFooter />
         </div>
       </div>
     </div>

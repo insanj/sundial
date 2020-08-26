@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
 
     textAlign: 'center',
+  },
+  brand: {
+    fontWeight: 800,
+    color: theme.palette.secondary.main
   }
 }));
 
@@ -37,7 +41,7 @@ export default function SundialAuthFeaturesGrid({}) {
     title: "Break Down Your Day",
     body: (
       <span>
-        <b>Sundial</b> makes it easy to figure out what you have to do and when it's important to focus on a new task. Goodbye, todo list.
+        <span className={classes.brand}>Sundial</span> makes it easy to figure out what you have to do and when it's important to focus on a new task. Goodbye, todo list.
       </span>
     )
   }, {
@@ -45,7 +49,7 @@ export default function SundialAuthFeaturesGrid({}) {
     title: "Agenda In The Cloud",
     body: (
       <span>
-        Responsive and mobile-friendly, <b>Sundial</b> works anywhere. Put your priorities somewhere special.
+        Responsive and mobile-friendly, <span className={classes.brand}>Sundial</span> works anywhere. Put your priorities somewhere special.
       </span>
     )
   }, {
@@ -53,7 +57,7 @@ export default function SundialAuthFeaturesGrid({}) {
     title: "Free, Open Source",
     body: (
       <span>
-        Still choosing the best app? <b>Sundial</b> is free to use, forever. You can even learn how it works on Github and request new features.
+        Still choosing the best app? <span className={classes.brand}>Sundial</span> is free to use, forever. You can even learn how it works on Github and request new features.
       </span>
     )
   }]
