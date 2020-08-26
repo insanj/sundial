@@ -9,13 +9,13 @@ BACKEND_URL=http://$(IP_ADDRESS):8080
 .PHONY: serve
 serve: env
 	echo "REACT_APP_BASE_URL=$(BACKEND_URL)" >> .env
-	npm run serve
+	npm start
 
 .PHONY: build
 build: env
 	npm run build
 	rm -r -f docs
-	mv dist docs
+	mv build docs
 	echo "$(PUBLIC_URL)" > docs/CNAME
 
 .PHONY: env

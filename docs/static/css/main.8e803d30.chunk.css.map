@@ -1,0 +1,1 @@
+{"version":3,"sources":["fonts.css"],"names":[],"mappings":"AAAA,WACE,kBAAmB,CACnB,yFAAkF,CAClF,eAAmB,CACnB,iBACF","file":"main.8e803d30.chunk.css","sourcesContent":["@font-face {\n  font-family: 'Lato';\n  src: local('Lato-Regular'), url(../fonts/Lato/Lato-Regular.ttf) format('truetype');\n  font-weight: normal;\n  font-style: normal;\n}\n"]}

@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8e803d30.chunk.css",
+    "main.js": "/static/js/main.faac26f4.chunk.js",
+    "main.js.map": "/static/js/main.faac26f4.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.b3c5c8d4.js",
+    "runtime-main.js.map": "/static/js/runtime-main.b3c5c8d4.js.map",
+    "static/js/2.7f9e9185.chunk.js": "/static/js/2.7f9e9185.chunk.js",
+    "static/js/2.7f9e9185.chunk.js.map": "/static/js/2.7f9e9185.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f06ac01aba11a666884ecd08d3927ce0.js": "/precache-manifest.f06ac01aba11a666884ecd08d3927ce0.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.8e803d30.chunk.css.map": "/static/css/main.8e803d30.chunk.css.map",
+    "static/js/2.7f9e9185.chunk.js.LICENSE.txt": "/static/js/2.7f9e9185.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "/static/media/Lato-Regular.2d36b1a9.ttf",
+    "static/media/noun_Sell Ebook_3293619.svg": "/static/media/noun_Sell Ebook_3293619.e313e6ac.svg",
+    "static/media/noun_intellectual property right_3293613.svg": "/static/media/noun_intellectual property right_3293613.6614916f.svg",
+    "static/media/noun_organizer_3293624.svg": "/static/media/noun_organizer_3293624.182cc299.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b3c5c8d4.js",
+    "static/js/2.7f9e9185.chunk.js",
+    "static/css/main.8e803d30.chunk.css",
+    "static/js/main.faac26f4.chunk.js"
+  ]
+}
