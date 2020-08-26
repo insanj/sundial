@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange }) {
   const classes = useStyles();
 
   return (
@@ -108,6 +108,7 @@ export default function SearchAppBar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
+            onClick={ onLogoClick }
           >
             <img src={ sundialLogo } className={classes.menuButtonImage} />
           </IconButton>

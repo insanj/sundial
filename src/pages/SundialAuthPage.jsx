@@ -9,17 +9,18 @@ import SundialNetworker from '../backend/SundialNetworker';
 const useStyles = makeStyles((theme) => ({
   '@keyframes backgroundFade': {
     '0%': {
-      backgroundPosition: '100% 50%'
+      backgroundPosition: '70% 50%'
     },
     '50%': {
       backgroundPosition: '0% 50%'
     },
     '100%': {
-      backgroundPosition: '100% 50%%'
+      backgroundPosition: '100% 50%'
     }
   },
 
   root: {
+    minWidth: '320px',
     minHeight: '100vh',
 
     background: 'linear-gradient(-45deg, rgba(131,73,247,1) 0%, rgba(125,71,231,1) 5%, rgba(116,71,203,1) 11%, rgba(114,70,201,1) 23%, rgba(98,57,177,1) 42%, rgba(94,56,170,1) 48%, rgba(94,53,177,1) 52%, rgba(90,61,186,1) 66%, rgba(94,83,187,1) 83%, rgba(98,102,199,1) 100%)',
@@ -120,6 +121,17 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: 0,
     lineHeight: 1,
     fontSize: '2.5rem',
+    paddingLeft: 20,
+    paddingRight: 20,
+
+    [theme.breakpoints.down(430)]: {
+      fontSize: '2.2rem'
+    },
+
+    [theme.breakpoints.down(375)]: {
+      fontSize: '1.8rem'
+    },
+
 
     '& > div': {
       display: 'inline-block'
@@ -181,9 +193,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 60,
     paddingBottom: 20,
 
-    animation: '$fadeIn 3s ease',
+    animation: '$fadeIn 3s ease forwards',
 
     '& > .g-signin2' : {
+      background: 'red',
       width: '120px',
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -219,10 +232,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SundialAuthPage({ networker, onAuthedTokenSuccess }) {
+export default function SundialAuthPage({ networker }) {
   const classes = useStyles();
-
-  const [addedEventListener, setAddedEventListener] = React.useState(false);
 
   const sundialSVG = (
     <svg className={classes.sundialSVG}  fill="#fff" xmlns="http://www.w3.org/2000/svg" data-name="Layer 51" viewBox="0 0 100 100" x="0px" y="0px">
@@ -230,40 +241,6 @@ export default function SundialAuthPage({ networker, onAuthedTokenSuccess }) {
       <path d="M51,24V20.44h0a.94.94,0,0,0,0-.3l0-.07a.61.61,0,0,0-.07-.14l0-.06a.46.46,0,0,0-.07-.07.57.57,0,0,0-.16-.15l-.06-.05a1.39,1.39,0,0,0-.28-.12h-.06a.57.57,0,0,0-.18,0H45a1,1,0,0,0-.89.56L41.9,24.41C20.39,26.58,4,37.23,4,50,4,64.34,24.64,76,50,76S96,64.34,96,50C96,35.85,75.9,24.32,51,24Zm0,7.15c20.29.26,36.64,8.61,36.64,18.84a10.6,10.6,0,0,1-1.85,5.83L51,49ZM25.65,59l3.83,2.34.1,0,.07,0,.05,0a1,1,0,0,0,.29,0h.07l54-3.37C78,64.44,65,68.86,50,68.86,29.24,68.86,12.36,60.4,12.36,50c0-8.3,10.77-15.37,25.68-17.88L25.28,57.66A1,1,0,0,0,25.65,59ZM50.16,50.9l28.22,5.52L34.57,59.16ZM49,49.25,32.29,58.1,49,24.68ZM45.62,21.44h2.76L29.59,59l-2.11-1.29ZM50,74C25.74,74,6,63.23,6,50,6,38.48,21,28.83,40.84,26.53L39.13,30C22.54,32.44,10.36,40.48,10.36,50c0,11.5,17.78,20.86,39.64,20.86,16.68,0,31-5.45,36.82-13.15a.94.94,0,0,0,.33-.43A12.5,12.5,0,0,0,89.64,50C89.64,38.68,72.4,29.44,51,29.16V26c23.8.3,43,10.94,43,24C94,63.23,74.26,74,50,74Z"></path>
     </svg>
   );
-
-  // learn more @ https://developers.google.com/identity/sign-in/web/backend-auth
-  const handleGoogleSignInSuccess = (googleUser) => {
-    const token = googleUser.getAuthResponse().id_token;
-    const profile = googleUser.getBasicProfile();
-
-    const payload = {
-      metadata: {
-        name: profile.getName(),
-        image: profile.getImageUrl(),
-        email: profile.getEmail(),
-      },
-      token: token,
-      googleId: profile.getId()
-    };
-
-    networker.login(payload).then(r => {
-      onAuthedTokenSuccess(token);
-    }).catch(e => {
-      console.log(`Unable to log in with Google: ${JSON.stringify(e)}`);
-    });
-  }
-
-  useEffect(() => {
-    if (addedEventListener) {
-      return;
-    }
-
-    setAddedEventListener(true);
-    window.addEventListener("SundialGoogleSignIn", (event) => {
-      const googleUser = event.detail;
-      handleGoogleSignInSuccess(googleUser);
-    });
-  });
 
   return (
     <div className={classes.root}>

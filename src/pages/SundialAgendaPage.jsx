@@ -43,9 +43,20 @@ export default function SundialAgendaPage({ networker, token }) {
     alert("Make new item!");
   }
 
+  const handleAppBarLogoClick = () => {
+    const confirm = window.confirm("Thanks for coming! Would you like to sign out of Sundial?");
+    if (!confirm) {
+      return;
+    }
+
+    const event = new CustomEvent("SundialPleaseSignOut");
+    window.dispatchEvent(event);
+  }
+
   return (
     <div className={ classes.root }>
       <SundialAgendaAppBar 
+        onLogoClick={ handleAppBarLogoClick }
         onSearchInputChange={ handleSearchInputChange }
       />
 
