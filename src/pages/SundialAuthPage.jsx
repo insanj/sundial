@@ -116,7 +116,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   headerText: {
-    letterSpacing: 1,
+    letterSpacing: 0,
+    lineHeight: 1,
 
     '& > div': {
       display: 'inline-block'
@@ -133,6 +134,18 @@ const useStyles = makeStyles((theme) => ({
     '& > div:nth-child(3)': {
       animation: '$fadeIn 3s ease-out, $moveDown 0.8s ease-in'
     }
+  },
+
+  headerSubtitle: {
+    letterSpacing: 0.5,
+    display: 'block',
+    width: '295px',
+    fontSize: '1.0rem',
+    color: 'rgba(255,255,255,0.5)',
+    lineHeight: 1,
+    textAlign: 'right',
+
+    animation: '$fadeIn 5s ease-out'
   },
 
   underline: {

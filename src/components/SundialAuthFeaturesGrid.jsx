@@ -9,7 +9,7 @@ import featureCloud from '../img/noun_Sell Ebook_3293619.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: '900px',
+    maxWidth: '1000px',
 
     minHeight: '100px',
 
@@ -49,7 +49,7 @@ export default function SundialAuthFeaturesGrid({}) {
     title: "Agenda In The Cloud",
     body: (
       <span>
-        Responsive and mobile-friendly, <span className={classes.brand}>Sundial</span> works anywhere. Put your priorities somewhere special.
+        Responsive and mobile-friendly, <span className={classes.brand}>Sundial</span> works anywhere. Put your priorities somewhere special and work on the go.
       </span>
     )
   }, {

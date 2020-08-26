@@ -11,16 +11,22 @@ const useStyles = makeStyles((theme) => ({
 
     width: 'calc(33% - 15px)',
 
-    [theme.breakpoints.down(950)]: {
-      width: 'calc(30% - 15px)',
+    [theme.breakpoints.down(1024)]: {
+      width: '290px',
     },
 
-    [theme.breakpoints.down(870)]: {
-      width: 'calc(40% - 15px)',
+
+    [theme.breakpoints.down(960)]: {
+      width: 'calc(35% - 15px)',
+    },
+
+
+    [theme.breakpoints.down(900)]: {
+      width: '280px',
     },
 
     [theme.breakpoints.down(660)]: {
-      width: 'calc(70% - 15px)',
+      width: 'calc(85% - 15px)',
     },
   },
   card: {
