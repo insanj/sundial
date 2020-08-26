@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 
 import SundialAuthFeaturesGrid from '../components/SundialAuthFeaturesGrid';
 import SundialFooter from '../components/SundialFooter';
+import SundialNetworker from '../backend/SundialNetworker';
 
 const useStyles = makeStyles((theme) => ({
   '@keyframes backgroundFade': {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
   container: {
     minHeight: '100px',
-    paddingTop: '10vh',
+    paddingTop: '40px',
   },
 
   header: {
@@ -103,8 +104,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   sundialSVG: {
-    width: '150px',
-    height: '150px',
+    width: '220px',
+    height: '220px',
 
     fill: theme.palette.primary.contrastText,
 
@@ -118,6 +119,7 @@ const useStyles = makeStyles((theme) => ({
   headerText: {
     letterSpacing: 0,
     lineHeight: 1,
+    fontSize: '2.5rem',
 
     '& > div': {
       display: 'inline-block'
@@ -212,12 +214,15 @@ const useStyles = makeStyles((theme) => ({
   },
 
   footer: {
-    animation: '$fadeIn 5s ease'
+    animation: '$fadeIn 5s ease',
+    marginTop: 200,
   }
 }));
 
-export default function SundialAuthPage({ onAuthedTokenSuccess }) {
+export default function SundialAuthPage({ networker, onAuthedTokenSuccess }) {
   const classes = useStyles();
+
+  const [addedEventListener, setAddedEventListener] = React.useState(false);
 
   const sundialSVG = (
     <svg className={classes.sundialSVG}  fill="#fff" xmlns="http://www.w3.org/2000/svg" data-name="Layer 51" viewBox="0 0 100 100" x="0px" y="0px">
@@ -226,15 +231,27 @@ export default function SundialAuthPage({ onAuthedTokenSuccess }) {
     </svg>
   );
 
-  const onSuccess = (googleUser) => {
-    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-  }
- 
-  const onFailure = (error) => {
-    console.log(error);
-  }
+  // learn more @ https://developers.google.com/identity/sign-in/web/backend-auth
+  const handleGoogleSignInSuccess = (googleUser) => {
+    const token = googleUser.getAuthResponse().id_token;
+    const profile = googleUser.getBasicProfile();
 
-  const [addedEventListener, setAddedEventListener] = React.useState(false);
+    const payload = {
+      metadata: {
+        name: profile.getName(),
+        image: profile.getImageUrl(),
+        email: profile.getEmail(),
+      },
+      token: token,
+      googleId: profile.getId()
+    };
+
+    networker.login(payload).then(r => {
+      onAuthedTokenSuccess(token);
+    }).catch(e => {
+      console.log(`Unable to log in with Google: ${JSON.stringify(e)}`);
+    });
+  }
 
   useEffect(() => {
     if (addedEventListener) {
@@ -243,17 +260,10 @@ export default function SundialAuthPage({ onAuthedTokenSuccess }) {
 
     setAddedEventListener(true);
     window.addEventListener("SundialGoogleSignIn", (event) => {
-      console.log("heard event = " + event);
-
-      const token = event.detail.getAuthResponse().id_token;
-      console.log("TOKEN = " + token);
+      const googleUser = event.detail;
+      handleGoogleSignInSuccess(googleUser);
     });
-
   });
-
-  const handleGoogleSignInSuccess = (googleUser) => {
-
-  }
 
   return (
     <div className={classes.root}>
@@ -274,7 +284,7 @@ export default function SundialAuthPage({ onAuthedTokenSuccess }) {
           <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
           <div className={classes.connectHelper}>
-            Use Sundial by signing into your Google account.<br/>By clicking, you agree to the use of <a href="">cookies</a>.<br/>
+            Use Sundial by signing into your Google account.<br/>By clicking, you agree to the use of <a href="https://policies.google.com/technologies/cookies">cookies</a>.<br/>
           </div>
         </div>
 

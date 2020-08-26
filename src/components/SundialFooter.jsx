@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     textAlign: 'center',
     color: "rgba(255,255,255,0.1)",
-    marginTop: 200,
     paddingBottom: 40,
 
     '& > a': {

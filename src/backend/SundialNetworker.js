@@ -1,7 +1,7 @@
 import preval from 'preval.macro';
 import jquery from 'jquery';
 
-import SundialCookies from './sipsCookies';
+import SundialCookies from './SundialCookies';
 
 class SundialNetworker {
   static baseURL() {
@@ -21,7 +21,7 @@ class SundialNetworker {
       jquery.ajax({
         method: 'POST',
         url: url,
-        data: JSON.stringify(body),
+        data: body,
         type: 'jsonp',
         headers: headers,
         success: (response) => {
@@ -41,14 +41,14 @@ class SundialNetworker {
     });
   }
 
-  getItems(token) {
+  login({ token, metadata }) {
     const baseURL = SundialNetworker.baseURL();
-    const reqURL = baseURL + '/items/get';
-    const requestHeaders = {
-      'token': token
+    const reqURL = baseURL + '/login';
+    const reqHeaders = {
     };
 
-    return this.post(reqURL, {}, requestHeaders);
+    const reqBody = { token, metadata };
+    return this.post(reqURL, reqBody, reqHeaders);
   }
 
 }

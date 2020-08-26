@@ -1,30 +1,32 @@
 {
   "files": {
     "main.css": "/static/css/main.8e803d30.chunk.css",
-    "main.js": "/static/js/main.4eddf9c4.chunk.js",
-    "main.js.map": "/static/js/main.4eddf9c4.chunk.js.map",
+    "main.js": "/static/js/main.93541fd4.chunk.js",
+    "main.js.map": "/static/js/main.93541fd4.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.b3c5c8d4.js",
     "runtime-main.js.map": "/static/js/runtime-main.b3c5c8d4.js.map",
     "static/css/2.ed3cbb2b.chunk.css": "/static/css/2.ed3cbb2b.chunk.css",
-    "static/js/2.141d320c.chunk.js": "/static/js/2.141d320c.chunk.js",
-    "static/js/2.141d320c.chunk.js.map": "/static/js/2.141d320c.chunk.js.map",
+    "static/js/2.3cac2af7.chunk.js": "/static/js/2.3cac2af7.chunk.js",
+    "static/js/2.3cac2af7.chunk.js.map": "/static/js/2.3cac2af7.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.23f62591a97bd701500451e21ff2a138.js": "/precache-manifest.23f62591a97bd701500451e21ff2a138.js",
+    "precache-manifest.a099b6ae04b23c2b76aa6782b4fde8cc.js": "/precache-manifest.a099b6ae04b23c2b76aa6782b4fde8cc.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.ed3cbb2b.chunk.css.map": "/static/css/2.ed3cbb2b.chunk.css.map",
     "static/css/main.8e803d30.chunk.css.map": "/static/css/main.8e803d30.chunk.css.map",
-    "static/js/2.141d320c.chunk.js.LICENSE.txt": "/static/js/2.141d320c.chunk.js.LICENSE.txt",
+    "static/js/2.3cac2af7.chunk.js.LICENSE.txt": "/static/js/2.3cac2af7.chunk.js.LICENSE.txt",
     "static/media/fonts.css": "/static/media/Lato-Regular.2d36b1a9.ttf",
+    "static/media/empty_state.png": "/static/media/empty_state.ef2a6224.png",
     "static/media/all.css": "/static/media/fa-solid-900.ee09ad75.woff",
     "static/media/noun_Sell Ebook_3293619.svg": "/static/media/noun_Sell Ebook_3293619.3ca08666.svg",
     "static/media/noun_intellectual property right_3293613.svg": "/static/media/noun_intellectual property right_3293613.9fb2ac83.svg",
-    "static/media/noun_organizer_3293624.svg": "/static/media/noun_organizer_3293624.e163fce3.svg"
+    "static/media/noun_organizer_3293624.svg": "/static/media/noun_organizer_3293624.e163fce3.svg",
+    "static/media/sundial-800x800.png": "/static/media/sundial-800x800.348ca491.png"
   },
   "entrypoints": [
     "static/js/runtime-main.b3c5c8d4.js",
     "static/css/2.ed3cbb2b.chunk.css",
-    "static/js/2.141d320c.chunk.js",
+    "static/js/2.3cac2af7.chunk.js",
     "static/css/main.8e803d30.chunk.css",
-    "static/js/main.4eddf9c4.chunk.js"
+    "static/js/main.93541fd4.chunk.js"
   ]
 }
