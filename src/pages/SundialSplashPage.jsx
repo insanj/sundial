@@ -39,12 +39,11 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     position: 'absolute',
-    top: 0,
     left: 0,
     right: 0,
     bottom: 0,
 
-    paddingTop: `calc(50vh - calc(${imageSize} / 2))`,
+    top: `calc(45vh - calc(${imageSize} / 2))`,
   },
   image: {
     width: imageSize,
@@ -57,14 +56,13 @@ const useStyles = makeStyles((theme) => ({
 export default function SundialSplashPage({ duration }) {
   const classes = useStyles();
   
-  const halfDurationMS = `${duration/2}ms`;
   const durationMS = `${duration}ms`;
 
   return (
     <div className={ classes.root }>
       <div className={ classes.container}>
         <img src={ sundialLogo } className={ classes.image } style={{
-          animation: `SundialSplash_scaleInAndUp ${halfDurationMS} ease, SundialSplash_fadeInOut ${durationMS} forwards`
+          animation: `SundialSplash_fadeInOut ${durationMS} forwards`
         }}/>
       </div>
     </div>

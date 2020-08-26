@@ -7,11 +7,22 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import NavigationIcon from '@material-ui/icons/Navigation';
 
 const useStyles = makeStyles((theme) => ({
+  '@keyframes moveFromRight': {
+    '0%': {
+      transform: 'translate(500px, 0)',
+    },
+    '100%': {
+      transform: 'translate(0, 0)',
+    }
+  },
+
   root: {
     position: 'fixed',
     bottom: 20,
     right: 20,
     
+    animation: '$moveFromRight 1.5s ease-in-out 0.5s forwards',
+
     '& > *': {
       margin: theme.spacing(1),
     },

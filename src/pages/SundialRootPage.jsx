@@ -18,7 +18,7 @@ export default function SundialRootPage() {
   const classes = useStyles();
   const networker = new SundialNetworker();
 
-  const splashAnimationDuration = 1000;
+  const splashAnimationDuration = 1100;
   const [splashAnimationCompleted, setSplashAnimationCompleted] = React.useState(false);
   const [authedToken, setAuthedToken] = React.useState(null);
   const [addedEventListener, setAddedEventListener] = React.useState(false);

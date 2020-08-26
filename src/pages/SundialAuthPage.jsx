@@ -139,14 +139,14 @@ const useStyles = makeStyles((theme) => ({
 
     '& > div:nth-child(1)': {
       color: 'rgba(255,255,255,0.85)',
-      animation: '$fadeIn 2.4s ease-out, $moveDown 0.5s ease-in'
+      animation: '$fadeIn 2.4s ease-out 1s forwards, $moveDown 0.5s ease-in 1s forwards'
     },
     '& > div:nth-child(2)': {
       color: 'rgba(255,255,255,0.85)',
-      animation: '$fadeIn 2.6s ease-out, $moveDown 0.7s ease-in'
+      animation: '$fadeIn 2.6s ease-out 1s forwards, $moveDown 0.7s ease-in 1s forwards'
     },
     '& > div:nth-child(3)': {
-      animation: '$fadeIn 3s ease-out, $moveDown 0.8s ease-in'
+      animation: '$fadeIn 3s ease-out 1s forwards, $moveDown 0.8s ease-in 1s forwards'
     }
   },
 
@@ -159,7 +159,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1,
     textAlign: 'right',
 
-    animation: '$fadeIn 5s ease-out'
+    animation: '$fadeIn 5s ease-out 1s forwards'
   },
 
   underline: {
@@ -172,11 +172,11 @@ const useStyles = makeStyles((theme) => ({
     
     background: theme.palette.primary.contrastText,
     opacity: 0.2,
-    animation: '$underlineFadeIn 1.5s, $scaleToRight 1.2s ease-in'
+    animation: '$underlineFadeIn 1.5s 1s forwards, $scaleToRight 1.2s ease-in 1s forwards'
   },
 
   featuresGrid: {
-    animation: '$fadeIn 3s ease-out, $moveUp 0.8s ease-in'
+    animation: '$fadeIn 3s ease-out 1s forwards, $moveUp 0.8s ease-in 1s forwards'
   },
 
   brand: {
@@ -193,7 +193,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 60,
     paddingBottom: 20,
 
-    animation: '$fadeIn 3s ease forwards',
+    animation: '$fadeIn 3s ease 1s forwards',
 
     '& > .g-signin2' : {
       width: '120px',
@@ -225,7 +225,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   footer: {
-    animation: '$fadeIn 5s ease',
+    animation: '$fadeIn 5s ease 1s fowards',
     marginTop: 200,
   }
 }));

@@ -18,12 +18,11 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   paper: {
-
   },
   content: {
     overflow: 'hidden',
     textAlign: 'center',
-    minHeight: 'calc(100vh - calc(74px + 60px))'
+    minHeight: 'calc(100vh - 60px)'
   },
 
 }));

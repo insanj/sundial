@@ -26,29 +26,23 @@ const useStyles = makeStyles((theme) => ({
     }
   },
 
-  '@keyframes moveFromRight': {
-    '0%': {
-      transform: 'translate(500px, 0)',
-    },
-    '100%': {
-      transform: 'translate(0, 0)',
-    }
-  },
-
   root: {
-
     '& > * > * > * > *': {
-      animation: '$fadeIn 1.5s ease-in, $moveUp 1.5s ease-out'
+      animation: '$fadeIn 1.5s ease-in 0.5s forwards, $moveUp 1.5s ease-out 0.5s forwards'
     }
-  },
-
-  fab: {
-    animation: '$fadeIn 1.5s ease-in, $moveFromRight 1.5s ease-out'
   },
 
   footer: {
     marginTop: 5,
-  }
+  },
+
+  calendar: {
+    position: 'fixed',
+  },
+
+  calendarPadding: {
+    height: '60px',
+  },
 }));
 
 export default function SundialAgendaPage({ networker, token }) {
@@ -96,10 +90,14 @@ export default function SundialAgendaPage({ networker, token }) {
         onSearchInputChange={ handleSearchInputChange }
       />
 
-      <SundialAgendaCalendar 
-        selectedDate={ selectedDate }
-        onDateClick={ handleCalendarDateClick }
-      />
+      <div className={classes.calendar}>
+        <SundialAgendaCalendar 
+          selectedDate={ selectedDate }
+          onDateClick={ handleCalendarDateClick }
+        />
+      </div>
+
+      <div className={classes.calendarPadding} />
 
       <SundialAgendaTodoList
         items={ loadedTodoListItems }
@@ -107,15 +105,9 @@ export default function SundialAgendaPage({ networker, token }) {
         onItemDeleteSubmit={ handleTodoListItemDeleteSubmit }
       />
 
-      <div className={classes.fab}>
-        <SundialAgendaFAB
-          onClick={ handleFloatingActionButtonClick }
-        />
-      </div>
-
-      <div className={classes.footer}>
-        <SundialFooter />
-      </div>
+      <SundialAgendaFAB
+        onClick={ handleFloatingActionButtonClick }
+      />
     </div>
   );
 }
