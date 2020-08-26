@@ -3,6 +3,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import './css/fonts.css';
+import './css/SundialApp.css';
 
 import '@fortawesome/fontawesome-free/css/all.css';
 

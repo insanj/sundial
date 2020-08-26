@@ -27,8 +27,10 @@ const useStyles = makeStyles((theme) => ({
   },
 
   root: {
+    minWidth: '270px',
+    
     '& > * > * > * > *': {
-      animation: '$fadeIn 1.5s ease-in 0.5s forwards, $moveUp 1.5s ease-out 0.5s forwards'
+      animation: '$fadeIn 2s ease-in forwards, $moveUp 2s ease-out forwards'
     }
   },
 
@@ -100,6 +102,7 @@ export default function SundialAgendaPage({ networker, token }) {
       <div className={classes.calendarPadding} />
 
       <SundialAgendaTodoList
+        date={ selectedDate }
         items={ loadedTodoListItems }
         onItemEditSubmit={ handleTodoListItemEditSubmit }
         onItemDeleteSubmit={ handleTodoListItemDeleteSubmit }
