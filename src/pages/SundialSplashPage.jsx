@@ -19,8 +19,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundPosition: '100% 50%%'
     }
   },
-  
+
   root: {
+    zIndex: 9999,
     minWidth: '260px',
     position: 'fixed',
     left: 0,

@@ -8,8 +8,44 @@ import SundialAgendaFAB from '../components/SundialAgendaFAB';
 import SundialFooter from '../components/SundialFooter';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  '@keyframes fadeIn': {
+    '0%': {
+      opacity: 0,
+    },
+    '100%': {
+      opacity: 1
+    }
   },
+
+  '@keyframes moveUp': {
+    '0%': {
+      transform: 'translate(0, 10px)',
+    },
+    '100%': {
+      transform: 'translate(0, 0px)',
+    }
+  },
+
+  '@keyframes moveFromRight': {
+    '0%': {
+      transform: 'translate(500px, 0)',
+    },
+    '100%': {
+      transform: 'translate(0, 0)',
+    }
+  },
+
+  root: {
+
+    '& > * > * > * > *': {
+      animation: '$fadeIn 1.5s ease-in, $moveUp 1.5s ease-out'
+    }
+  },
+
+  fab: {
+    animation: '$fadeIn 1.5s ease-in, $moveFromRight 1.5s ease-out'
+  },
+
   footer: {
     marginTop: 5,
   }
@@ -71,9 +107,11 @@ export default function SundialAgendaPage({ networker, token }) {
         onItemDeleteSubmit={ handleTodoListItemDeleteSubmit }
       />
 
-      <SundialAgendaFAB
-        onClick={ handleFloatingActionButtonClick }
-      />
+      <div className={classes.fab}>
+        <SundialAgendaFAB
+          onClick={ handleFloatingActionButtonClick }
+        />
+      </div>
 
       <div className={classes.footer}>
         <SundialFooter />

@@ -88,7 +88,8 @@ export default function SundialRootPage() {
 
   return (
     <div className={classes.root}>
-      { !splashAnimationCompleted ? splashContent : (!authedToken ? unauthedContent : authedContent) }
+      { !authedToken ? unauthedContent : authedContent }
+      { !splashAnimationCompleted ? splashContent : '' }
     </div>
   );
 }

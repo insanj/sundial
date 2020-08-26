@@ -9,7 +9,7 @@ import SundialNetworker from '../backend/SundialNetworker';
 const useStyles = makeStyles((theme) => ({
   '@keyframes backgroundFade': {
     '0%': {
-      backgroundPosition: '70% 50%'
+      backgroundPosition: '100% 50%'
     },
     '50%': {
       backgroundPosition: '0% 50%'
@@ -196,11 +196,9 @@ const useStyles = makeStyles((theme) => ({
     animation: '$fadeIn 3s ease forwards',
 
     '& > .g-signin2' : {
-      background: 'red',
       width: '120px',
       marginLeft: 'auto',
       marginRight: 'auto',
-      background: 'red',
       textAlign: 'center',
       transform: 'scale(1.35, 1.35)'
     }
@@ -258,7 +256,7 @@ export default function SundialAuthPage({ networker }) {
         </div>
 
         <div className={classes.connect}>
-          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <div className="g-signin2" data-onsuccess="onSignIn"></div>
 
           <div className={classes.connectHelper}>
             Use Sundial by signing into your Google account.<br/>By clicking, you agree to the use of <a href="https://policies.google.com/technologies/cookies">cookies</a>.<br/>
