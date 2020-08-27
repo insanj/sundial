@@ -1,7 +1,10 @@
 import preval from 'preval.macro';
 import jquery from 'jquery';
+import moment from 'moment';
 
 import SundialCookies from './SundialCookies';
+
+var SUNDIAL_AUTH_HEADER_KEY = 'Sundial-Token';
 
 class SundialNetworker {
   static baseURL() {
@@ -51,6 +54,45 @@ class SundialNetworker {
     return this.post(reqURL, reqBody, reqHeaders);
   }
 
+  newItem({ token, name, date, metadata }) {
+    const baseURL = SundialNetworker.baseURL();
+    const reqURL = baseURL + '/item/new';
+    let reqHeaders = {}
+    reqHeaders[SUNDIAL_AUTH_HEADER_KEY] = token;
+
+    const reqBody = { 
+      itemName: name,
+      itemMetadata: metadata,
+      itemDate: date
+    };
+
+    return this.post(reqURL, reqBody, reqHeaders);
+  }
+
+  getItems({ token }) {
+    const baseURL = SundialNetworker.baseURL();
+    const reqURL = baseURL + '/items/get';
+    let reqHeaders = {}
+    reqHeaders[SUNDIAL_AUTH_HEADER_KEY] = token;
+
+    return this.post(reqURL, {}, reqHeaders);
+  }
+
+  editItem({ token, id, name, date, metadata }) {
+    const baseURL = SundialNetworker.baseURL();
+    const reqURL = baseURL + '/item/edit';
+    let reqHeaders = {}
+    reqHeaders[SUNDIAL_AUTH_HEADER_KEY] = token;
+
+    const reqBody = {
+      itemId: id,
+      itemName: name,
+      itemDate: date,
+      itemMetadata: metadata
+    };
+
+    return this.post(reqURL, reqBody, reqHeaders);
+  }
 }
 
 export default SundialNetworker;

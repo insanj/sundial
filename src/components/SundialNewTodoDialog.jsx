@@ -51,10 +51,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SundialNewTodoDialog({ open, selectedDate, onSaveClick, onCloseClick, isLoadingState=false }) {
+export default function SundialNewTodoDialog({ open, selectedDate, onSaveClick, onCloseClick, isLoadingState, textAreaValue, onTextAreaInputChange }) {
   const classes = useStyles();
-
-  const [textAreaValue, setTextAreaValue] = React.useState('');
 
   const handleCloseClick = () => {
     onCloseClick();
@@ -68,11 +66,7 @@ export default function SundialNewTodoDialog({ open, selectedDate, onSaveClick, 
 
     onSaveClick(textAreaValue);
   }
-
-  const handleTextAreaInputChange = (event) => {
-    setTextAreaValue(event.target.value);
-  }
-
+  
   const daySubtitle = moment(selectedDate).format('DD MMMM yyyy').toUpperCase(); // 15 AUGUST 2020
 
   return (
@@ -98,7 +92,7 @@ export default function SundialNewTodoDialog({ open, selectedDate, onSaveClick, 
               color="secondary"
               fullWidth
               value={textAreaValue}
-              onChange={handleTextAreaInputChange}
+              onChange={onTextAreaInputChange}
               disabled={isLoadingState === true}
               style={{
                 opacity: isLoadingState === true ? 0.5 : 1.0

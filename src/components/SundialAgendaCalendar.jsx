@@ -4,6 +4,23 @@ import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
+  '@keyframes fadeIn': {
+    '0%': {
+      opacity: 0,
+    },
+    '100%': {
+      opacity: 1
+    }
+  },
+  '@keyframes scaleUp': {
+    '0%': {
+      transform: 'scale(0.75, 0.75)',
+    },
+    '100%': {
+      transform: 'scale(1, 1)',
+    }
+  },
+
   root: {
     zIndex: -1,
     background: '#424242',
@@ -17,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
 
     // borderLeft: '1px solid rgba(255,255,255,0.2)',
     // borderRight: '1px solid rgba(255,255,255,0.2)',
+
+    '& > tbody > tr > td': {
+      animation: '$fadeIn 2s ease-in forwards, $scaleUp 2s ease-out forwards'
+    },
 
     '& > tbody > tr > td:nth-child(n+2)': {
       borderLeft: '1px solid rgba(0,0,0,0.2)',

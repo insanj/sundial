@@ -8,6 +8,8 @@ import emptyState from '../img/empty_state.png';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CreateIcon from '@material-ui/icons/Create';
 
+import SundialAgendaTodoListCell from './SundialAgendaTodoListCell';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: '320px',
@@ -25,10 +27,20 @@ const useStyles = makeStyles((theme) => ({
   content: {
     overflow: 'hidden',
     textAlign: 'center',
-    minHeight: 'calc(100vh - 60px)'
+    minHeight: 'calc(100vh - 60px)',
   },
-}));
+  todoListSection: {
+    marginLeft: 12,
+    marginRight: 12,
+    marginTop: 8,
+    marginBottom: 8,
+    textAlign: 'left',
 
+    '& > *': {
+      margin: 6,
+    }
+  }
+}));
 
 function SundialAgendaTodoListEmpty() {
   const classes = makeStyles((theme) => ({
@@ -47,7 +59,7 @@ function SundialAgendaTodoListEmpty() {
     image: {
       width: '100%',
       height: 'auto',
-      objectFit: 'contain'
+      objectFit: 'contain',
     },
     title: {
       fontFamily: 'Lato-Bold',
@@ -133,7 +145,8 @@ function SundialAgendaTodoListHeader({ date }) {
     },
     bottom: {
       fontFamily: 'Lato-Bold',
-    }
+    },
+
   }))();
 
   const day = moment(date).format("dddd");
@@ -155,9 +168,35 @@ function SundialAgendaTodoListHeader({ date }) {
   );
 }
 
-export default function SundialAgendaTodoList({ selectedDate }) {
+export default function SundialAgendaTodoList({ selectedDate, items, onItemEditSubmit, onItemDeleteSubmit }) {
   const classes = useStyles();
+
+  const handleCheckboxClick = (item, checked) => {
+    if (!item.metadata) {
+      item.metadata = { checked: checked };
+    } else {
+      item.metadata.checked = checked;
+    }
+
+    onItemEditSubmit(item);
+  }
   
+  const todoListContent = !items || items.length < 1 ? (
+    <SundialAgendaTodoListEmpty />
+  ) : (
+    <div className={classes.todoListSection}>
+      { items.map(i => {
+        return (
+          <SundialAgendaTodoListCell
+            item={ i }
+            checked={ i.metadata && i.metadata.checked ? i.metadata.checked === "true" : false }
+            onCheckboxClick={ handleCheckboxClick }
+          />
+        );
+      }) }
+    </div>
+  );
+
   return (
     <div className={ classes.root }>
       <Paper elevation={4} square className={ classes.paper }>
@@ -166,7 +205,7 @@ export default function SundialAgendaTodoList({ selectedDate }) {
             date={ selectedDate }
           />
 
-          <SundialAgendaTodoListEmpty />
+          { todoListContent }
         </div>
       </Paper>
     </div>

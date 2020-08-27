@@ -11,11 +11,27 @@ import SearchIcon from '@material-ui/icons/Search';
 import sundialLogo from '../img/sundial-800x800.png';
 
 const useStyles = makeStyles((theme) => ({
+  '@keyframes fadeIn': {
+    '0%': {
+      opacity: 0,
+    },
+    '100%': {
+      opacity: 1
+    }
+  },
+
+  '@keyframes moveDown': {
+    '0%': {
+      transform: 'translate(0, -10px)',
+    },
+    '100%': {
+      transform: 'translate(0, 0px)',
+    }
+  },
+
   root: {
     flexGrow: 1,
     paddingTop: 74,
-
-
   },
   '@keyframes backgroundFade': {
     '0%': {
@@ -39,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
 
     backgroundSize: '800% 800%',
     animation: '$backgroundFade 30s ease infinite alternate',
+
+    '& > *': {
+      animation: '$fadeIn 2s ease-in forwards, $moveDown 2s ease-out forwards'
+    }
   },
   menuButton: {
   },
@@ -88,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '12ch',
+      width: '15ch',
       '&:focus': {
         width: '20ch',
       },
@@ -96,8 +116,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange }) {
+export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange, searchPlaceholder }) {
   const classes = useStyles();
+
+  const handleSearchInputChange = (event) => {
+    onSearchInputChange(event.target.value);
+  }
 
   return (
     <div className={classes.root}>
@@ -120,12 +144,13 @@ export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange }
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder={ searchPlaceholder }
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onChange={ handleSearchInputChange }
             />
           </div>
         </Toolbar>
