@@ -7,6 +7,7 @@ import SundialAgendaTodoList from '../components/SundialAgendaTodoList';
 import SundialAgendaFAB from '../components/SundialAgendaFAB';
 import SundialFooter from '../components/SundialFooter';
 import SundialNewTodoDialog from '../components/SundialNewTodoDialog';
+import SundialEditTodoDialog from '../components/SundialEditTodoDialog';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   todoList: {
-    animation: '$fadeIn 2s ease-in forwards, $moveUp 2s ease-out forwards',
+    animation: '$moveUp 2s ease-out forwards',
   },
 
   snackbar: {
@@ -97,6 +98,10 @@ export default function SundialAgendaPage({ networker, token }) {
 
   const [newTodoSnackbarOpen, setNewTodoSnackbarOpen] = React.useState(false);
 
+  const [isEditTodoDialogOpen, setIsEditTodoDialogOpen] = React.useState(false);
+  const [editTodoDialogItem, setEditTodoDialogItem] = React.useState(null);
+  const [isEditTodoSaveInProgress, setIsEditTodoSaveInProgress] = React.useState(false);
+  const [editTodoDialogTextAreaValue, setEditTodoDialogTextAreaValue] = React.useState('');
 
   const load = () => {
     networker.getItems({ token: token }).then(r => {
@@ -126,12 +131,16 @@ export default function SundialAgendaPage({ networker, token }) {
       return dateMoment.day() === selectedMoment.day() && dateMoment.month() === selectedMoment.month() && dateMoment.year() === selectedMoment.year();
     });
 
+    const sorted = filtered.sort((s1, s2) => {
+      return s1.name.localeCompare(s2.name);
+    });
+
     if (!searchInput || searchInput.length < 1) {
-      return filtered;
+      return sorted;
     }
 
     const searchWords = searchInput.toLowerCase().split(" ");
-    const searched = filtered.filter(i => {
+    const searched = sorted.filter(i => {
       const words = i.name.toLowerCase();
       const wordsMatched = searchWords.filter(w => {
         return words.includes(w);
@@ -217,6 +226,72 @@ export default function SundialAgendaPage({ networker, token }) {
     load();
   }
 
+  const handleTodoListItemClick = (todoListItem) => {
+    setEditTodoDialogItem(todoListItem);
+    setEditTodoDialogTextAreaValue(todoListItem.name);
+    setIsEditTodoDialogOpen(true);
+  }
+
+  const handleEditTodoDialogTextAreaInputChange = (event) => {
+    setEditTodoDialogTextAreaValue(event.target.value);
+  }
+
+  const handleEditTodoDialogCloseClick = () => {
+    setIsEditTodoDialogOpen(false, () => {
+          setEditTodoDialogItem(null);
+    setEditTodoDialogTextAreaValue('');
+    });
+
+  }
+
+  const handleEditTodoDialogSaveClick = (todoListItem) => {
+    setIsEditTodoSaveInProgress(true);
+
+    networker.editItem({
+      token: token,
+      id: todoListItem.id,
+      name: todoListItem.name,
+      date: todoListItem.date,
+      metadata: todoListItem.metadata && Object.keys(todoListItem.metadata).length > 0 ? todoListItem.metadata : { checked: false }
+    }).then(r => {
+      setIsEditTodoSaveInProgress(false);
+      setIsEditTodoDialogOpen(false);
+      setEditTodoDialogTextAreaValue(todoListItem.name);
+
+      load();
+    }).catch(e => {
+      setIsEditTodoSaveInProgress(false);
+
+      load();
+      console.log(e);
+    });
+  }
+
+  const handleEditTodoDialogDeleteClick = (todoListItem) => {
+    const confirm = window.confirm("Are you sure you want to delete this Todo? You cannot undo this action!");
+    if (!confirm) {
+      return;
+    }
+
+    setIsEditTodoSaveInProgress(true);
+
+    networker.deleteItem({
+      token: token,
+      id: todoListItem.id,
+    }).then(r => {
+      setIsEditTodoSaveInProgress(false);
+      setIsEditTodoDialogOpen(false);
+      setEditTodoDialogTextAreaValue(todoListItem.name);
+
+      load();
+    }).catch(e => {
+      setIsEditTodoSaveInProgress(false);
+
+      load();
+      console.log(e);
+    });
+  }
+
   return (
     <div className={ classes.root }>
       <SundialAgendaAppBar
@@ -240,8 +315,8 @@ export default function SundialAgendaPage({ networker, token }) {
         <SundialAgendaTodoList
           selectedDate={ selectedDate }
           items={ getTodoListItemsForSelectedDate() }
+          onItemClick={ handleTodoListItemClick }
           onItemEditSubmit={ handleTodoListItemEditSubmit }
-          onItemDeleteSubmit={ handleTodoListItemDeleteSubmit }
         />
       </div>
 
@@ -257,6 +332,17 @@ export default function SundialAgendaPage({ networker, token }) {
         onCloseClick={ handleNewTodoDialogCloseClick }
         onSaveClick={ handleNewTodoDialogSaveClick }
         isLoadingState={ isNewTodoSaveInProgress }
+      />
+
+      <SundialEditTodoDialog
+        open={ isEditTodoDialogOpen }
+        item={ editTodoDialogItem }
+        textAreaValue={ editTodoDialogTextAreaValue }
+        onTextAreaInputChange={ handleEditTodoDialogTextAreaInputChange }
+        onCloseClick={ handleEditTodoDialogCloseClick }
+        onSaveClick={ handleEditTodoDialogSaveClick }
+        onDeleteClick={ handleEditTodoDialogDeleteClick }
+        isLoadingState={ isEditTodoSaveInProgress }
       />
 
       <ThemeProvider theme={bannerTheme}>

@@ -28,17 +28,9 @@ const useStyles = makeStyles((theme) => ({
     height: '60px',
     minWidth: '250px',
   },
-  legendTable: {
-    width: '100%',
-    tableLayout: 'fixed',
-    borderCollapse: 'collapse',
-
-    '& > tbody > tr > td': {
-      animation: '$fadeIn 2s ease-in forwards, $scaleUp 2s ease-out forwards'
-    }
-  },
   legendCell: {
-    paddingTop: 4,
+    paddingTop: 5,
+    paddingBottom: 4,
     fontSize: '0.8rem',
     fontFamily: 'Lato-Bold',
     fontWeight: 500,
@@ -48,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     tableLayout: 'fixed',
     borderCollapse: 'collapse',
-    borderTop: '1px solid rgba(0,0,0,0.2)',
 
     // borderLeft: '1px solid rgba(255,255,255,0.2)',
     // borderRight: '1px solid rgba(255,255,255,0.2)',
@@ -66,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
       color: 'rgba(220, 231, 117, 1.0)',
       fontWeight: 700,
 
-      '& > *': {
+      '& > *:not(:nth-child(1))': {
         background: theme.palette.secondary.main,
         color: '#414241'
       }
@@ -87,8 +78,8 @@ const useStyles = makeStyles((theme) => ({
   cell: {
     cursor: 'pointer',
     textAlign: 'center',
-    paddingTop: 4,
-    paddingBottom: 4,
+    paddingTop: 2,
+    paddingBottom: 8,
     paddingLeft: 2,
     paddingRight: 2,
     lineHeight: 1.2,
@@ -96,7 +87,6 @@ const useStyles = makeStyles((theme) => ({
 
     transition: '0.2s ease',
     '&:hover': {
-      fontWeight: 900,
       background: 'rgba(94, 53, 177, 0.6) !important'
     },
 
@@ -169,37 +159,23 @@ export default function SundialAgendaCalendar({ selectedDate, onDateClick }) {
   const dayCells = days.map(day => {
     const dayText = moment(day).format('D');
     const fullDateText = moment(day).format('MMMM Do, YYYY');
+    const headerText = moment(day).format('dd').charAt(0);
     return (
-      <td className={classes.cell} onClick={ () => handleCellClick(day) }>
-        <Tooltip arrow title={fullDateText}>
+      <Tooltip arrow title={fullDateText}>
+        <td className={classes.cell} onClick={ () => handleCellClick(day) }>
+          <div className={classes.legendCell}>
+            { headerText }
+          </div>
           <div className={classes.cellText}>
             { dayText }
           </div>
-        </Tooltip>
-      </td>
+        </td>
+      </Tooltip>
     );
   });
-
-  const headerCells = days.map(day => {
-    const dayText = moment(day).format('dd').charAt(0);
-    return (
-      <td className={classes.legendCell}>
-        { dayText }
-      </td>
-    );
-  });
-
 
   return (
     <div className={ classes.root }>
-      <table className={ classes.legendTable }>
-        <tbody>
-          <tr>
-            { headerCells }
-          </tr>
-        </tbody>
-      </table>
-
       <table className={ classes.table }>
         <tbody>
           <tr>

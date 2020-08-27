@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   paper: {
+    background: ''
   },
   content: {
     overflow: 'hidden',
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   todoListSection: {
     marginLeft: 12,
     marginRight: 12,
-    marginTop: 8,
+    marginTop: 6,
     marginBottom: 8,
     textAlign: 'left',
 
@@ -122,15 +123,15 @@ function SundialAgendaTodoListEmpty() {
   );
 }
 
-function SundialAgendaTodoListHeader({ date }) {
+function SundialAgendaTodoListHeader({ date, itemCount }) {
   const classes = makeStyles((theme) => ({
     header: {
       textAlign: 'left',
-      paddingTop: 18,
+      paddingTop: 20,
       paddingLeft: 20,
       paddingRight: 20,
       lineHeight: 1,
-      fontSize: '1.8rem',
+      fontSize: '3.0rem',
 
     },
     top: {
@@ -138,7 +139,7 @@ function SundialAgendaTodoListHeader({ date }) {
       // display: 'inline',
       color: 'rgba(255,255,255,0.4)',
       fontWeight: 800,
-      fontSize: '0.7rem',
+      fontSize: '0.8rem',
 
       '& > span:nth-child(1)': {
       }
@@ -146,6 +147,10 @@ function SundialAgendaTodoListHeader({ date }) {
     bottom: {
       fontFamily: 'Lato-Bold',
     },
+    bull: {
+      paddingLeft: 3,
+      paddingRight: 3
+    }
 
   }))();
 
@@ -157,7 +162,7 @@ function SundialAgendaTodoListHeader({ date }) {
     <div className={classes.header}>
 
       <div className={classes.top}>
-        <span>{ month }</span> <span>{ year }</span>
+        <span>{ month }</span> <span>{ year }</span> <span className={classes.bull}>&bull;</span> <span>{ itemCount }</span> <span>TODO{ itemCount === 1 ? '' : 'S'}</span>
       </div>
 
       <div className={classes.bottom}>
@@ -168,7 +173,7 @@ function SundialAgendaTodoListHeader({ date }) {
   );
 }
 
-export default function SundialAgendaTodoList({ selectedDate, items, onItemEditSubmit, onItemDeleteSubmit }) {
+export default function SundialAgendaTodoList({ selectedDate, items, onItemEditSubmit, onItemClick }) {
   const classes = useStyles();
 
   const handleCheckboxClick = (item, checked) => {
@@ -189,6 +194,7 @@ export default function SundialAgendaTodoList({ selectedDate, items, onItemEditS
         return (
           <SundialAgendaTodoListCell
             item={ i }
+            onClick={ onItemClick }
             checked={ i.metadata && i.metadata.checked ? i.metadata.checked === "true" : false }
             onCheckboxClick={ handleCheckboxClick }
           />
@@ -203,6 +209,7 @@ export default function SundialAgendaTodoList({ selectedDate, items, onItemEditS
         <div className={ classes.content }>
           <SundialAgendaTodoListHeader
             date={ selectedDate }
+            itemCount={ items ? items.length : 0 }
           />
 
           { todoListContent }

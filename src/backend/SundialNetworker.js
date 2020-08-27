@@ -93,6 +93,20 @@ class SundialNetworker {
 
     return this.post(reqURL, reqBody, reqHeaders);
   }
+
+  deleteItem({ token, id }) {
+    const baseURL = SundialNetworker.baseURL();
+    const reqURL = baseURL + '/item/delete';
+    let reqHeaders = {}
+    reqHeaders[SUNDIAL_AUTH_HEADER_KEY] = token;
+
+    const reqBody = { 
+      itemId: id,
+    };
+
+    return this.post(reqURL, reqBody, reqHeaders);
+  }
+
 }
 
 export default SundialNetworker;

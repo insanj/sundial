@@ -9,17 +9,22 @@ import Tilt from 'react-tilt'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'inline-block',
+    cursor: 'pointer',
   },
   content: {
     paddingLeft: 0,
     paddingRight: 10,
+  },
+  title: {
+    display: 'inline-block'
   }
 }));
 
-export default function SundialAgendaTodoListCell({ item, checked, onCheckboxClick }) {
+export default function SundialAgendaTodoListCell({ item, checked, onCheckboxClick, onClick }) {
   const classes = useStyles();
   
   const handleClick = () => {
+    onClick(item);
     // onCheckboxClick(item, !checked);
   }
 
@@ -28,7 +33,7 @@ export default function SundialAgendaTodoListCell({ item, checked, onCheckboxCli
   }
 
   return (      
-    <div className={ classes.root } onClick={ handleClick }>
+    <div className={ classes.root }>
       <Tilt className="Tilt" options={{ perspective: 900, scale: 1.1 }}>
         <Paper className={ classes.paper }>
           <div className="Tilt-inner">
@@ -38,7 +43,9 @@ export default function SundialAgendaTodoListCell({ item, checked, onCheckboxCli
                 onChange={ handleCheckboxClick }
               />
 
-              { item.name }
+              <div className={classes.title} onClick={ handleClick }>
+                { item.name }
+              </div>
             </div>
           </div>
         </Paper>
