@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SundialAgendaFAB() {
+export default function SundialAgendaFAB({ onClick }) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Fab color="secondary" aria-label="edit">
+      <Fab color="secondary" aria-label="edit" onClick={ onClick }>
         <EditIcon />
       </Fab>
     </div>

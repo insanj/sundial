@@ -6,6 +6,7 @@ import SundialAgendaCalendar from '../components/SundialAgendaCalendar';
 import SundialAgendaTodoList from '../components/SundialAgendaTodoList';
 import SundialAgendaFAB from '../components/SundialAgendaFAB';
 import SundialFooter from '../components/SundialFooter';
+import SundialNewTodoDialog from '../components/SundialNewTodoDialog';
 
 const useStyles = makeStyles((theme) => ({
   '@keyframes fadeIn': {
@@ -55,6 +56,9 @@ export default function SundialAgendaPage({ networker, token }) {
 
   const [loadedTodoListItems, setLoadedTodoListItems] = React.useState(null);
 
+  const [isNewTodoDialogOpen, setIsNewTodoDialogOpen] = React.useState(false);
+  const [isNewTodoSaveInProgress, setIsNewTodoSaveInProgress] = React.useState(false);
+
   const handleSearchInputChange = (newSearchInput) => {
     setSearchInput(newSearchInput);
   }
@@ -71,10 +75,6 @@ export default function SundialAgendaPage({ networker, token }) {
     alert("Delete item!");
   }
 
-  const handleFloatingActionButtonClick = () => {
-    alert("Make new item!");
-  }
-
   const handleAppBarLogoClick = () => {
     const confirm = window.confirm("Thanks for coming! Would you like to sign out of Sundial?");
     if (!confirm) {
@@ -83,6 +83,18 @@ export default function SundialAgendaPage({ networker, token }) {
 
     const event = new CustomEvent("SundialPleaseSignOut");
     window.dispatchEvent(event);
+  }
+
+  const handleFloatingActionButtonClick = () => {
+    setIsNewTodoDialogOpen(true);
+  }
+
+  const handleNewTodoDialogCloseClick = () => {
+    setIsNewTodoDialogOpen(false);
+  }
+
+  const handleNewTodoDialogSaveClick = (textAreaValue) => {
+    setIsNewTodoSaveInProgress(true);
   }
 
   return (
@@ -102,7 +114,7 @@ export default function SundialAgendaPage({ networker, token }) {
       <div className={classes.calendarPadding} />
 
       <SundialAgendaTodoList
-        date={ selectedDate }
+        selectedDate={ selectedDate }
         items={ loadedTodoListItems }
         onItemEditSubmit={ handleTodoListItemEditSubmit }
         onItemDeleteSubmit={ handleTodoListItemDeleteSubmit }
@@ -110,6 +122,14 @@ export default function SundialAgendaPage({ networker, token }) {
 
       <SundialAgendaFAB
         onClick={ handleFloatingActionButtonClick }
+      />
+
+      <SundialNewTodoDialog
+        open={ isNewTodoDialogOpen }
+        selectedDate={ selectedDate }
+        onCloseClick={ handleNewTodoDialogCloseClick }
+        onSaveClick={ handleNewTodoDialogSaveClick }
+        isLoadingState={ isNewTodoSaveInProgress }
       />
     </div>
   );

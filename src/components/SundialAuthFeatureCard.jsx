@@ -16,14 +16,14 @@ const useStyles = makeStyles((theme) => ({
     },
 
 
-    [theme.breakpoints.down(960)]: {
-      width: 'calc(35% - 15px)',
-    },
+    // [theme.breakpoints.down(960)]: {
+    //   width: 'calc(35% - 15px)',
+    // },
 
 
-    [theme.breakpoints.down(900)]: {
-      width: '280px',
-    },
+    // [theme.breakpoints.down(920)]: {
+    //   width: '280px',
+    // },
 
     [theme.breakpoints.down(660)]: {
       width: 'calc(85% - 15px)',

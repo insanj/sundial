@@ -155,7 +155,7 @@ function SundialAgendaTodoListHeader({ date }) {
   );
 }
 
-export default function SundialAgendaTodoList({ date }) {
+export default function SundialAgendaTodoList({ selectedDate }) {
   const classes = useStyles();
   
   return (
@@ -163,7 +163,7 @@ export default function SundialAgendaTodoList({ date }) {
       <Paper elevation={4} square className={ classes.paper }>
         <div className={ classes.content }>
           <SundialAgendaTodoListHeader
-            date={ date }
+            date={ selectedDate }
           />
 
           <SundialAgendaTodoListEmpty />
