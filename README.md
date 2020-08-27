@@ -1,6 +1,22 @@
 # sundial
 🌤 break your day down, an intuitive and free-to-use react / node.js app
 
+
+![](collage.jpg)
+
+## Authors
+
+```
+(c) 2020
+Julian (insanj) Weiss
+github.com/insanj
+```
+
+## License
+
+See [LICENSE](LICENSE).
+
+
 ## Project setup
 ```
 npm install
@@ -90,15 +106,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-## Authors
-
-```
-(c) 2020
-Julian (insanj) Weiss
-github.com/insanj
-```
-
-## License
-
-See [LICENSE](LICENSE).
