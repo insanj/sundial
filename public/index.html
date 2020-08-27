@@ -31,21 +31,13 @@
     <div id="root"></div>
 
     <script>
-      /**
- * Handle successful sign-ins.
- */
-var onSuccess = function(user) {
-  alert("hello");
-    console.log('Signed in as ' + user.getBasicProfile().getName());
- };
-
-/**
- * Handle sign-in failures.
- */
-var onFailure = function(error) {
-    console.log(error);
-      alert("world");
-};
+      var onSuccess = function(user) {
+        const event = new CustomEvent("SundialGoogleSignIn", { detail: user });
+        window.dispatchEvent(event);
+     };
+      var onFailure = function(error) {
+          console.log(error);
+      };
 
       function init() {
         gapi.load('auth2', function() {

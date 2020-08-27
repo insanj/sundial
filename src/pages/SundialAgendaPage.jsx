@@ -238,10 +238,9 @@ export default function SundialAgendaPage({ networker, token }) {
 
   const handleEditTodoDialogCloseClick = () => {
     setIsEditTodoDialogOpen(false, () => {
-          setEditTodoDialogItem(null);
-    setEditTodoDialogTextAreaValue('');
+      setEditTodoDialogItem(null);
+      setEditTodoDialogTextAreaValue('');
     });
-
   }
 
   const handleEditTodoDialogSaveClick = (todoListItem) => {
