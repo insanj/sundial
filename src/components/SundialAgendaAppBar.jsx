@@ -7,6 +7,12 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import EventIcon from '@material-ui/icons/Event';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+import moment from 'moment';
 
 import sundialLogo from '../img/sundial-800x800.png';
 
@@ -62,6 +68,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
   },
+  calendarButton: {
+    marginRight: 0,
+    marginLeft: 0,
+  },
   menuButtonImage: {
     width: 50,
     height: 50,
@@ -116,12 +126,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange, searchPlaceholder }) {
+export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange, searchPlaceholder, selectedDate, onCalendarDateSelected }) {
   const classes = useStyles();
+
+  const [calendarDropdownMenuAnchor, setCalendarDropdownMenuAnchor] = React.useState(null);
 
   const handleSearchInputChange = (event) => {
     onSearchInputChange(event.target.value);
   }
+
+  const handleCalendarIconClick = (event) => {
+    setCalendarDropdownMenuAnchor(event.currentTarget);
+  }
+
+  const handleCalendarDropdownMenuClose = () => {
+    setCalendarDropdownMenuAnchor(null);
+  }
+
+  const handleCelandarDateChange = (event) => {
+    onCalendarDateSelected(event.target.value);
+  }
+
+  const calendarInputCurrentValue = moment(selectedDate).format('YYYY-MM-DD');
+  const calendarInputDropdownMenu = (
+    <Menu
+      id="simple-menu"
+      anchorEl={calendarDropdownMenuAnchor}
+      keepMounted
+      open={Boolean(calendarDropdownMenuAnchor)}
+      onClose={handleCalendarDropdownMenuClose}
+    >
+      <MenuItem>
+        <input 
+          type="date" 
+          value={ calendarInputCurrentValue }
+          onChange={ handleCelandarDateChange }>
+        </input>
+      </MenuItem>
+      <MenuItem onClick={handleCalendarDropdownMenuClose}>
+        Close
+      </MenuItem>
+    </Menu>
+  );
 
   return (
     <div className={classes.root}>
@@ -139,6 +185,7 @@ export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange, 
           <Typography className={classes.title} variant="h5" noWrap>
             Sundial
           </Typography>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -153,6 +200,18 @@ export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange, 
               onChange={ handleSearchInputChange }
             />
           </div>
+
+
+          <IconButton
+            edge="end"
+            color="inherit"
+            className={classes.calendarButton}
+            onClick={ handleCalendarIconClick }
+          >
+            <EventIcon />
+          </IconButton>
+
+          { calendarInputDropdownMenu }
         </Toolbar>
       </AppBar>
     </div>

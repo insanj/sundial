@@ -212,12 +212,19 @@ export default function SundialAgendaPage({ networker, token }) {
     });
   }
 
+  const handleAppBarCalendarDateSelected = (newDate) => {
+    setSelectedDate(newDate);
+    load();
+  }
+
   return (
     <div className={ classes.root }>
       <SundialAgendaAppBar
         searchPlaceholder={ `Search ${moment(selectedDate).format('M/D/YY')}...` }
         onLogoClick={ handleAppBarLogoClick }
         onSearchInputChange={ handleSearchInputChange }
+        selectedDate={ selectedDate }
+        onCalendarDateSelected={ handleAppBarCalendarDateSelected }
       />
 
       <div className={classes.calendar}>

@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     animation: '$moveFromRight 1.5s ease-in-out forwards',
 
     '& > *': {
+      color: '#424242',
       margin: theme.spacing(1),
     },
   },
