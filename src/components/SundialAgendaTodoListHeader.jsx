@@ -3,6 +3,29 @@ import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 
 export default function SundialAgendaTodoListHeader({ date, itemCount }) {
+  // const [isStrokingDate, setIsStrokingDate] = React.useState(false);
+  const [strokedDate, setStrokedDate] = React.useState(null);
+
+  // useEffect(() => {
+  //   if (strokedDate === date) {
+  //     return;
+  //   }
+
+  //   if (isStrokingDate === true) {
+  //     return;
+  //   }
+
+  //   setIsStrokingDate(true);
+  //   setTimeout(() => {
+  //     setStrokedDate(date);
+  //     setIsStrokingDate(false);
+  //   }, 1700);
+  // }, [isStrokingDate, setIsStrokingDate, strokedDate, setStrokedDate]);
+
+  const handleUnderlineAnimationEnd = () => {
+    setStrokedDate(date);
+  }
+
   const classes = makeStyles((theme) => ({
     '@keyframes underlineStroke': {
       '0%': {
@@ -70,7 +93,8 @@ export default function SundialAgendaTodoListHeader({ date, itemCount }) {
 
       <div className={classes.bottom}>
         <span>{ day }</span>
-        <div className={classes.underline} />
+        
+        { strokedDate === date ? '' : <div className={classes.underline} onAnimationEnd={ handleUnderlineAnimationEnd }/> }
       </div>
 
     </div>
