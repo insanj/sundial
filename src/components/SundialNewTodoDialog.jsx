@@ -102,7 +102,7 @@ export default function SundialNewTodoDialog({ open, selectedDate, onSaveClick, 
         </DialogContent>
         <DialogActions>
           <Button onClick={ handleCloseClick } color="secondary">
-            Hide
+            Cancel
           </Button>
           <Button 
             disabled={isLoadingState === true}

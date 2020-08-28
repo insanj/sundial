@@ -107,7 +107,7 @@ export default function SundialEditTodoDialog({ open, item, onSaveClick, onDelet
         </DialogContent>
         <DialogActions>
           <Button onClick={ handleCloseClick } color="secondary">
-            Hide
+            Cancel
           </Button>
           <Button
             disabled={isLoadingState === true}
