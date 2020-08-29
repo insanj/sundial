@@ -2,9 +2,22 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 
-export default function SundialAgendaTodoListHeader({ date, itemCount }) {
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Divider from '@material-ui/core/Divider';
+
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import SortIcon from '@material-ui/icons/Sort';
+
+import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+
+export default function SundialAgendaTodoListHeader({ date, itemCount, selectedSort=-1, onSortClick }) {
   // const [isStrokingDate, setIsStrokingDate] = React.useState(false);
   const [strokedDate, setStrokedDate] = React.useState(null);
+  const [moreMenuOpenAnchor, setMoreMenuOpenAnchor] = React.useState(null);
 
   // useEffect(() => {
   //   if (strokedDate === date) {
@@ -76,13 +89,46 @@ export default function SundialAgendaTodoListHeader({ date, itemCount }) {
     bull: {
       paddingLeft: 3,
       paddingRight: 3
-    }
+    },
+    rightToolbar: {
+      display: 'inline-block',
+      position: 'absolute',
 
+      top: 20,
+      right: 20,
+
+      // textAlign: 'right',
+      // float: 'right',
+    },
+    menu: {
+
+
+    },
+    menuItem: {
+      cursor: 'pointer',
+
+      '& > svg': {
+        marginRight: 6,
+      }
+    }
   }))();
 
   const day = moment(date).format("dddd");
   const month = moment(date).format("MMM").toUpperCase();
   const year = moment(date).format("yyyy");
+
+  const handleHeaderMoreButtonClick = (event) => {
+    setMoreMenuOpenAnchor(event.currentTarget);
+  }
+
+  const handleMoreMenuClose = () => {
+    setMoreMenuOpenAnchor(null);
+  }
+
+  const handleMenuItemClick = (index) => {
+    onSortClick(index);
+    setMoreMenuOpenAnchor(null);
+  }
 
   return (
     <div className={classes.header}>
@@ -97,6 +143,40 @@ export default function SundialAgendaTodoListHeader({ date, itemCount }) {
         { strokedDate === date ? '' : <div className={classes.underline} onAnimationEnd={ handleUnderlineAnimationEnd }/> }
       </div>
 
+
+      <div className={classes.rightToolbar}>
+        <IconButton size="medium" edge="end" onClick={ handleHeaderMoreButtonClick }>
+          <MoreVertIcon />
+        </IconButton>
+      </div>
+
+      <Menu
+        className={ classes.menu }
+        open={ Boolean(moreMenuOpenAnchor) }
+        anchorEl={ moreMenuOpenAnchor }
+        onClose={ handleMoreMenuClose }
+        getContentAnchorEl={null}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        transformOrigin={{ vertical: "top", horizontal: "left" }}
+      >
+        <MenuItem disabled className={classes.menuItem}>
+          <SortIcon /> Sort
+        </MenuItem>
+
+        <Divider />
+
+        <MenuItem onClick={ () => handleMenuItemClick(0) } selected={selectedSort === 0} className={classes.menuItem}>
+          <SortByAlphaIcon /> Alphabetical
+        </MenuItem>
+
+        <MenuItem onClick={ () => handleMenuItemClick(1) } selected={selectedSort === 1} className={classes.menuItem}>
+          <DoneAllIcon /> Checked
+        </MenuItem>
+
+        <MenuItem onClick={ () => handleMenuItemClick(2) } selected={selectedSort === 2} className={classes.menuItem}>
+          <ScheduleIcon /> Last Edited
+        </MenuItem>
+      </Menu>
     </div>
   );
 }

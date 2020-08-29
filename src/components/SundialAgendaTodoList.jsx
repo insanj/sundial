@@ -1,10 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
 import SundialAgendaTodoListCell from './SundialAgendaTodoListCell';
 import SundialAgendaTodoListEmpty from './SundialAgendaTodoListEmpty';
 import SundialAgendaTodoListHeader from './SundialAgendaTodoListHeader';
+
+import SortIcon from '@material-ui/icons/Sort';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,23 +26,28 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     overflow: 'hidden',
-    textAlign: 'center',
+    // textAlign: 'center',
     minHeight: 'calc(100vh - 60px)',
   },
   todoListSection: {
     marginLeft: 12,
     marginRight: 12,
-    marginTop: 6,
+    marginTop: 4,
     marginBottom: 8,
     textAlign: 'left',
 
     '& > *': {
       margin: 6,
     }
+  },
+
+  sortButton: {
+    marginTop: 6,
+    marginLeft: 20
   }
 }));
 
-export default function SundialAgendaTodoList({ selectedDate, items, onItemEditSubmit, onItemClick }) {
+export default function SundialAgendaTodoList({ selectedDate, items, onItemEditSubmit, onItemClick, onItemDeleteClick, selectedSort, onTodoListSortClick }) {
   const classes = useStyles();
 
   const handleCheckboxClick = (item, checked) => {
@@ -64,6 +72,7 @@ export default function SundialAgendaTodoList({ selectedDate, items, onItemEditS
               onClick={ onItemClick }
               checked={ i.metadata && i.metadata.checked ? i.metadata.checked === "true" : false }
               onCheckboxClick={ handleCheckboxClick }
+              onDeleteClick={ onItemDeleteClick }
             />
           </div>
         );
@@ -78,6 +87,8 @@ export default function SundialAgendaTodoList({ selectedDate, items, onItemEditS
           <SundialAgendaTodoListHeader
             date={ selectedDate }
             itemCount={ items ? items.length : 0 }
+            selectedSort={ selectedSort }
+            onSortClick={ onTodoListSortClick }
           />
 
           { todoListContent }

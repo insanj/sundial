@@ -68,7 +68,7 @@ export default function SundialNewTodoDialog({ open, selectedDate, onSaveClick, 
 
   return (
     <div className={ classes.root }>
-      <Dialog open={ open } onClose={ handleCloseClick } aria-labelledby="form-dialog-title">
+      <Dialog fullWidth open={ open } onClose={ handleCloseClick } aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
           <div className={ classes.header }>
             New Todo
@@ -81,6 +81,7 @@ export default function SundialNewTodoDialog({ open, selectedDate, onSaveClick, 
           <div className={ classes.textAreaContainer }>
             <TextareaAutosize
               className={ classes.textArea }
+              rowsMin={3}
               rowsMax={15}
               autoFocus
               margin="dense"

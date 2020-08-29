@@ -236,7 +236,7 @@ export default function SundialAgendaCalendar({ selectedDate, datesToUnreadItems
   });
 
   return (
-    <div className={ classes.root }>
+    <div className={ `${classes.root} SundialAgendaCalendar` }>
       <table className={ classes.table }>
         <tbody>
           <tr>

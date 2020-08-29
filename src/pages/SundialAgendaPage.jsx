@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import jquery from 'jquery';
 
 import SundialAgendaAppBar from '../components/SundialAgendaAppBar';
 import SundialAgendaCalendar from '../components/SundialAgendaCalendar';
@@ -83,6 +84,7 @@ export default function SundialAgendaPage({ networker, token }) {
 
   const [searchInput, setSearchInput] = React.useState('');
   const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedSort, setSelectedSort] = React.useState(1);
 
   const [loadedTodoListItemDate, setLoadedTodoListItemDate] = React.useState(null);
   const [loadedTodoListItems, setLoadedTodoListItems] = React.useState(null);
@@ -127,9 +129,30 @@ export default function SundialAgendaPage({ networker, token }) {
       return dateMoment.day() === selectedMoment.day() && dateMoment.month() === selectedMoment.month() && dateMoment.year() === selectedMoment.year();
     });
 
-    const sorted = filtered.sort((s1, s2) => {
-      return s1.name.localeCompare(s2.name);
-    });
+    let sorted = [];
+    if (selectedSort === 1) { // checked
+      sorted = filtered.sort((s1, s2) => {
+        const c1 = s1.metadata !== null && s1.metadata.checked !== null && s1.metadata.checked === 'true';
+        const c2 = s2.metadata !== null && s2.metadata.checked !== null  && s2.metadata.checked === 'true';
+        if (c1 === c2) {
+          return s1.name.localeCompare(s2.name); // fallback to alphabetical
+        } else if (c1 === true && c2 === false) {
+          return 1;
+        } else if (c1 === false && c2 === true) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    } else if (selectedSort === 2) { // last edited
+      sorted = filtered.sort((s1, s2) => {
+        return moment(s2.modified).diff(moment(s1.modified));
+      });
+    } else {
+      sorted = filtered.sort((s1, s2) => { // alphabetical
+        return s1.name.localeCompare(s2.name);
+      });
+    }
 
     if (!searchInput || searchInput.length < 1) {
       return sorted;
@@ -179,12 +202,24 @@ export default function SundialAgendaPage({ networker, token }) {
     return datesToUnread;
   }
 
+  const handleTodoListSortClick = (sortIndex) => {
+    setSelectedSort(sortIndex);
+  }
+
   const handleSearchInputChange = (newSearchInput) => {
     setSearchInput(newSearchInput);
   }
 
   const handleCalendarDateClick = (newSelectedDate) => {
     setSelectedDate(newSelectedDate);
+
+    jquery('.SundialAgendaCalendar').animate({
+      opacity: 0.8,
+    }, 200, 'swing', () => {
+      jquery('.SundialAgendaCalendar').animate({
+        opacity: 1.0
+      });
+    });
   }
 
   const handleTodoListItemEditSubmit = (todoListItem) => {
@@ -341,8 +376,11 @@ export default function SundialAgendaPage({ networker, token }) {
         <SundialAgendaTodoList
           selectedDate={ selectedDate }
           items={ getTodoListItemsForSelectedDate() }
+          selectedSort={ selectedSort }
+          onTodoListSortClick={ handleTodoListSortClick }
           onItemClick={ handleTodoListItemClick }
           onItemEditSubmit={ handleTodoListItemEditSubmit }
+          onItemDeleteClick={ handleEditTodoDialogDeleteClick }
         />
       </div>
 
