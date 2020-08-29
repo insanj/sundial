@@ -23,6 +23,30 @@ export default function SundialRootPage() {
   const [addedEventListener, setAddedEventListener] = React.useState(false);
 
   const handleAuthGoogleSuccess = (user) => {
+    // const googleUser = {
+    //   getAuthResponse: () => {
+    //     return {
+    //       id_token: user['wc']['access_token']
+    //     };
+    //   },
+    //   getBasicProfile: () => {
+    //     return {
+    //       getName: () => {
+    //         return user['rt']['Ad'];
+    //       },
+    //       getImageUrl: () => {
+    //         return user['rt']['TJ'];
+    //       },
+    //       getEmail: () => {
+    //         return user['rt']['$t'];
+    //       },
+    //       getId: () => {
+    //         return user['rt']['NT'];
+    //       }
+    //     }
+    //   }
+    // };
+
     handleGoogleSignInSuccess(user);
   }
 

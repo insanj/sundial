@@ -271,6 +271,15 @@ export default function SundialAuthPage({ networker, onGoogleSuccess }) {
 
         // var auth2 = window.gapi.auth2.getAuthInstance();
         auth2.attachClickHandler(sundialGoogleButtonId, {}, onGoogleSuccess, handleGoogleFailure);
+
+        const currentUser = auth2.currentUser.get();
+        if (currentUser) {
+          currentUser.reloadAuthResponse().then(r => {
+            // console.log(r);
+          }).catch(e => {
+            handleGoogleFailure(e);
+          });
+        }
       }).catch(e => {
         console.log(e);
       });
