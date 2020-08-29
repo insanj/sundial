@@ -1,102 +1,143 @@
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import moment from 'moment';
+import React, {useEffect} from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import moment from "moment";
 
-export default function SundialAgendaTodoListHeader({ date, itemCount }) {
-  // const [isStrokingDate, setIsStrokingDate] = React.useState(false);
-  const [strokedDate, setStrokedDate] = React.useState(null);
+export default function SundialAgendaTodoListHeader ({date, itemCount}) {
 
-  // useEffect(() => {
-  //   if (strokedDate === date) {
-  //     return;
-  //   }
+    // Const [isStrokingDate, setIsStrokingDate] = React.useState(false);
+    const [
+            strokedDate,
+            setStrokedDate
+        ] = React.useState(null),
 
-  //   if (isStrokingDate === true) {
-  //     return;
-  //   }
+        /*
+         * UseEffect(() => {
+         *   If (strokedDate === date) {
+         *     Return;
+         *   }
+         */
 
-  //   setIsStrokingDate(true);
-  //   setTimeout(() => {
-  //     setStrokedDate(date);
-  //     setIsStrokingDate(false);
-  //   }, 1700);
-  // }, [isStrokingDate, setIsStrokingDate, strokedDate, setStrokedDate]);
+        /*
+         *   If (isStrokingDate === true) {
+         *     Return;
+         *   }
+         */
 
-  const handleUnderlineAnimationEnd = () => {
-    setStrokedDate(date);
-  }
+        /*
+         *   SetIsStrokingDate(true);
+         *   SetTimeout(() => {
+         *     SetStrokedDate(date);
+         *     SetIsStrokingDate(false);
+         *   }, 1700);
+         * }, [isStrokingDate, setIsStrokingDate, strokedDate, setStrokedDate]);
+         */
 
-  const classes = makeStyles((theme) => ({
-    '@keyframes underlineStroke': {
-      '0%': {
-        left: '20px',
-        width: 0,
-      },
-      '50%': {
-        left: '20px',
-        width: '240px',
-      },
-      '100%': {
-        left: '260px',
-        width: 0,
-      }
-    },
+        handleUnderlineAnimationEnd = () => {
 
-    underline: {
-      position: 'absolute',
-      background: theme.palette.secondary.main,
-      height: '2px',
-      width: '240px',
+            setStrokedDate(date);
 
-      animation: '$underlineStroke 1s forwards ease-in-out'
-    },
+        },
 
-    header: {
-      textAlign: 'left',
-      paddingTop: 20,
-      paddingLeft: 20,
-      paddingRight: 20,
-      lineHeight: 1,
-      fontSize: '3.0rem',
+        classes = makeStyles((theme) => ({
+            "@keyframes underlineStroke": {
+                "0%": {
+                    "left": "20px",
+                    "width": 0
+                },
+                "50%": {
+                    "left": "20px",
+                    "width": "240px"
+                },
+                "100%": {
+                    "left": "260px",
+                    "width": 0
+                }
+            },
 
-    },
-    top: {
-      // float: 'right',
-      // display: 'inline',
-      color: 'rgba(255,255,255,0.4)',
-      fontWeight: 800,
-      fontSize: '0.8rem',
+            "underline": {
+                "position": "absolute",
+                "background": theme.palette.secondary.main,
+                "height": "2px",
+                "width": "240px",
 
-      '& > span:nth-child(1)': {
-      }
-    },
-    bottom: {
-      fontFamily: 'Lato-Bold',
-    },
-    bull: {
-      paddingLeft: 3,
-      paddingRight: 3
-    }
+                "animation": "$underlineStroke 1s forwards ease-in-out"
+            },
 
-  }))();
+            "header": {
+                "textAlign": "left",
+                "paddingTop": 20,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "lineHeight": 1,
+                "fontSize": "3.0rem"
 
-  const day = moment(date).format("dddd");
-  const month = moment(date).format("MMM").toUpperCase();
-  const year = moment(date).format("yyyy");
+            },
+            "top": {
 
-  return (
-    <div className={classes.header}>
+                /*
+                 * Float: 'right',
+                 * Display: 'inline',
+                 */
+                "color": "rgba(255,255,255,0.4)",
+                "fontWeight": 800,
+                "fontSize": "0.8rem",
 
-      <div className={classes.top}>
-        <span>{ month }</span> <span>{ year }</span> <span className={classes.bull}>&bull;</span> <span>{ itemCount }</span> <span>TODO{ itemCount === 1 ? '' : 'S'}</span>
-      </div>
+                "& > span:nth-child(1)": {
+                }
+            },
+            "bottom": {
+                "fontFamily": "Lato-Bold"
+            },
+            "bull": {
+                "paddingLeft": 3,
+                "paddingRight": 3
+            }
 
-      <div className={classes.bottom}>
-        <span>{ day }</span>
-        
-        { strokedDate === date ? '' : <div className={classes.underline} onAnimationEnd={ handleUnderlineAnimationEnd }/> }
-      </div>
+        }))(),
 
-    </div>
-  );
+        day = moment(date).format("dddd"),
+        month = moment(date).format("MMM").
+            toUpperCase(),
+        year = moment(date).format("yyyy");
+
+    return (
+        <div className={classes.header}>
+
+            <div className={classes.top}>
+                <span>
+                    { month }
+                </span>
+                {" "}
+                <span>
+                    { year }
+                </span>
+                {" "}
+                <span className={classes.bull}>
+                    &bull;
+                </span>
+                {" "}
+                <span>
+                    { itemCount }
+                </span>
+                {" "}
+                <span>
+                    TODO
+                    { itemCount === 1 ? "" : "S"}
+                </span>
+            </div>
+
+            <div className={classes.bottom}>
+                <span>
+                    { day }
+                </span>
+
+                { strokedDate === date ? "" : <div
+                    className={classes.underline}
+                    onAnimationEnd={handleUnderlineAnimationEnd}
+                /> }
+            </div>
+
+        </div>
+    );
+
 }
