@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import sundialLogo from '../img/sundial-800x800.png';
@@ -61,7 +61,7 @@ export default function SundialSplashPage({ duration }) {
   return (
     <div className={ classes.root }>
       <div className={ classes.container}>
-        <img src={ sundialLogo } className={ classes.image } style={{
+        <img alt="Sundial" src={ sundialLogo } className={ classes.image } style={{
           animation: `SundialSplash_fadeInOut ${durationMS} forwards`
         }}/>
       </div>

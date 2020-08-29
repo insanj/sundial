@@ -5,10 +5,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import EventIcon from '@material-ui/icons/Event';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -180,7 +178,7 @@ export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange, 
             aria-label="open drawer"
             onClick={ onLogoClick }
           >
-            <img src={ sundialLogo } className={classes.menuButtonImage} />
+            <img alt="Sundial" src={ sundialLogo } className={classes.menuButtonImage} />
           </IconButton>
           <Typography className={classes.title} variant="h5" noWrap>
             Sundial

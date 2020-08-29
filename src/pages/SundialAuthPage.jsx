@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 
 import SundialAuthFeaturesGrid from '../components/SundialAuthFeaturesGrid';
 import SundialFooter from '../components/SundialFooter';
-import SundialNetworker from '../backend/SundialNetworker';
 
 const useStyles = makeStyles((theme) => ({
   '@keyframes backgroundFade': {
@@ -251,11 +249,11 @@ export default function SundialAuthPage({ networker, onGoogleSuccess }) {
     </svg>
   );
 
-  const handleGoogleFailure = (e) => {
-    console.log(e);
-  }
-
   useEffect(() => {
+    const handleGoogleFailure = (e) => {
+      console.log(e);
+    }
+
     window.gapi.load('auth2', function() {
       window.gapi.auth2.init({
         client_id: '536519055297-nvagfvf3pjp7rui21aar1cd55khih4vq.apps.googleusercontent.com'
@@ -277,7 +275,7 @@ export default function SundialAuthPage({ networker, onGoogleSuccess }) {
         console.log(e);
       });
     });
-  }, []);
+  }, [onGoogleSuccess]);
 
   return (
     <div className={classes.root}>

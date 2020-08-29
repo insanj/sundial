@@ -32,9 +32,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SundialAuthFeaturesGrid({}) {
+export default function SundialAuthFeaturesGrid() {
   const classes = useStyles();
-
 
   const features = [{
     image: featureAgenda,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import emptyState from '../img/empty_state.png';
@@ -70,9 +70,8 @@ export default function SundialAgendaTodoListEmpty() {
 
   return (
     <div className={classes.root}>
-      <img src={ emptyState } className={ classes.image } />
-
-
+      <img alt="Empty Todo List" src={ emptyState } className={ classes.image } />
+      
       <div className={ classes.title }>
         Ready to fill in your day?
       </div>

@@ -1,8 +1,5 @@
 import preval from 'preval.macro';
 import jquery from 'jquery';
-import moment from 'moment';
-
-import SundialCookies from './SundialCookies';
 
 var SUNDIAL_AUTH_HEADER_KEY = 'Sundial-Token';
 

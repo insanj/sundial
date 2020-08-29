@@ -1,18 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import SundialAgendaAppBar from '../components/SundialAgendaAppBar';
 import SundialAgendaCalendar from '../components/SundialAgendaCalendar';
 import SundialAgendaTodoList from '../components/SundialAgendaTodoList';
 import SundialAgendaFAB from '../components/SundialAgendaFAB';
-import SundialFooter from '../components/SundialFooter';
 import SundialNewTodoDialog from '../components/SundialNewTodoDialog';
 import SundialEditTodoDialog from '../components/SundialEditTodoDialog';
 
 import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Button from '@material-ui/core/Button';
 
 import Slide from '@material-ui/core/Slide';
 import Alert from '@material-ui/lab/Alert';
@@ -103,13 +99,13 @@ export default function SundialAgendaPage({ networker, token }) {
   const [isEditTodoSaveInProgress, setIsEditTodoSaveInProgress] = React.useState(false);
   const [editTodoDialogTextAreaValue, setEditTodoDialogTextAreaValue] = React.useState('');
 
-  const load = () => {
+  const load = useCallback(() => {
     networker.getItems({ token: token }).then(r => {
       setLoadedTodoListItems(r.data);
     }).catch(e => {
       console.log(e);
     });
-  }
+  }, [setLoadedTodoListItems, networker, token]);
 
   useEffect(() => {
     if (loadedTodoListItemDate) {
@@ -203,10 +199,6 @@ export default function SundialAgendaPage({ networker, token }) {
     }).catch(e => {
       console.log(e);
     });
-  }
-
-  const handleTodoListItemDeleteSubmit = (todoListItem) => {
-    alert("Delete item!");
   }
 
   const handleAppBarLogoClick = () => {

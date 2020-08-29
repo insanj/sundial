@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -155,7 +155,7 @@ export default function SundialAgendaCalendar({ selectedDate, datesToUnreadItems
     onDateClick(day);
   }
 
-  const monthTitle = moment(selectedDate).format("MMMM");
+  // const monthTitle = moment(selectedDate).format("MMMM");
 
   // const generateArrayOfUnreadItemIds = () => {
   //   if (!datesToUnreadItems) {

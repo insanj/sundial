@@ -80,16 +80,12 @@ export default function SundialRootPage() {
       return;
     }
 
+    setAddedEventListener(true);
     setTimeout(() => {
       setSplashAnimationCompleted(true);
     }, splashAnimationDuration);
 
-    setAddedEventListener(true);
-    // window.addEventListener("SundialGoogleSignIn", (event) => {
-    //   const googleUser = event.detail;
-    //   handleGoogleSignInSuccess(googleUser);
-    // });
-  }, [handleGoogleSignInSuccess, setAuthedToken, splashAnimationCompleted, setSplashAnimationCompleted]);
+  }, [addedEventListener, setAddedEventListener, splashAnimationCompleted, setSplashAnimationCompleted]);
 
   return (
     <div className={classes.root}>
