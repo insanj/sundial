@@ -1,13 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 
 import SundialAgendaTodoListCell from './SundialAgendaTodoListCell';
 import SundialAgendaTodoListEmpty from './SundialAgendaTodoListEmpty';
 import SundialAgendaTodoListHeader from './SundialAgendaTodoListHeader';
-
-import SortIcon from '@material-ui/icons/Sort';
 
 const useStyles = makeStyles((theme) => ({
   root: {

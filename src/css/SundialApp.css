@@ -8,3 +8,22 @@ html {
 body {
   min-width: 250px !important;
 }
+
+::selection {
+    color: #fff;
+    background: #dce775;
+}
+
+::-moz-selection {
+    color: #fff;
+    background: #dce775;
+}
+
+::-webkit-selection {
+    color: #fff;
+    background: #dce775;
+}
+
+textarea {
+  outline: none;
+}

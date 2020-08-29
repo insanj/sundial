@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: '250px',
   },
-
 }));
 
 export default function SundialRootPage() {
