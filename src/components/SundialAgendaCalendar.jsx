@@ -118,21 +118,33 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 'auto',
     background: 'rgba(255,255,255,0.1)'
   },
-  unreadBadge: {
-    position: 'absolute',
-    right: 5,
-    top: 4,
+  'unreadBadge': {
+    "position": "absolute",
+    "right": 0,
+    "top": 0,
 
-    paddingTop: 2,
-    paddingRight: 1,
+    "paddingTop": 2,
+    "paddingRight": 0,
+    "fontWeight": 500,
 
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    "width": 18,
+    "height": 18,
+    "borderBottomLeftRadius": 4,
 
-    fontSize: '0.8rem',
-    color: '#424242',
-    background: theme.palette.secondary.main
+    "overflow": "hidden",
+
+    "fontSize": "0.8rem",
+    "color": "#424242",
+    "background": theme.palette.secondary.main,
+
+    [theme.breakpoints.down(450)]: {
+        "fontSize": "0.7rem",
+        "fontWeight": 500,
+        "width": 14,
+        "height": 14,
+        "paddingTop": 0,
+        "paddingRight": 0
+    }
   }
 }));
 
