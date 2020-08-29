@@ -1,100 +1,134 @@
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useEffect} from "react";
+import {makeStyles} from "@material-ui/core/styles";
 
-import SundialAuthPage from './SundialAuthPage';
-import SundialAgendaPage from './SundialAgendaPage';
-import SundialSplashPage from './SundialSplashPage';
+import SundialAuthPage from "./SundialAuthPage";
+import SundialAgendaPage from "./SundialAgendaPage";
+import SundialSplashPage from "./SundialSplashPage";
 
-import SundialNetworker from '../backend/SundialNetworker';
+import SundialNetworker from "../backend/SundialNetworker";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    minWidth: '250px',
-  },
+    "root": {
+        "minWidth": "250px"
+    }
 
 }));
 
-export default function SundialRootPage() {
-  const classes = useStyles();
-  const networker = new SundialNetworker();
+export default function SundialRootPage () {
 
-  const splashAnimationDuration = 1100;
-  const [splashAnimationCompleted, setSplashAnimationCompleted] = React.useState(false);
-  const [authedToken, setAuthedToken] = React.useState(null);
-  const [addedEventListener, setAddedEventListener] = React.useState(false);
+    const classes = useStyles(),
+        networker = new SundialNetworker(),
 
-  const handleAuthGoogleSuccess = (user) => {
-    handleGoogleSignInSuccess(user);
-  }
+        splashAnimationDuration = 1100,
+        [
+            splashAnimationCompleted,
+            setSplashAnimationCompleted
+        ] = React.useState(false),
+        [
+            authedToken,
+            setAuthedToken
+        ] = React.useState(null),
+        [
+            addedEventListener,
+            setAddedEventListener
+        ] = React.useState(false),
 
-  const unauthedContent = (
-    <div>
-      <SundialAuthPage
-        networker={ networker }
-        onGoogleSuccess={ handleAuthGoogleSuccess }
-      />
-    </div>
-  );
+        handleAuthGoogleSuccess = (user) => {
 
-  const authedContent = (
-    <div>
-      <SundialAgendaPage 
-        networker={ networker }
-        token={ authedToken }
-      />
-    </div>
-  );
+            handleGoogleSignInSuccess(user);
 
-  const splashContent = (
-    <div>
-      <SundialSplashPage
-        duration={ splashAnimationDuration }
-      />
-    </div>
-  );
+        },
 
-  // learn more @ https://developers.google.com/identity/sign-in/web/backend-auth
-  const handleGoogleSignInSuccess = (googleUser) => {
-    const token = googleUser.getAuthResponse().id_token;
-    const profile = googleUser.getBasicProfile();
+        unauthedContent =
+            <div>
+             <SundialAuthPage
+                 networker={networker}
+                 onGoogleSuccess={handleAuthGoogleSuccess}
+             />
+         </div>,
+        authedContent =
+            (<div>
+         <SundialAgendaPage
+             networker={networker}
+             token={authedToken}
+         />
+     </div>),
+        splashContent =
+            (<div>
+         <SundialSplashPage
+             duration={splashAnimationDuration}
+         />
+     </div>),
 
-    const payload = {
-      metadata: {
-        name: profile.getName(),
-        image: profile.getImageUrl(),
-        email: profile.getEmail(),
-      },
-      token: token,
-      googleId: profile.getId()
-    };
+        // Learn more @ https://developers.google.com/identity/sign-in/web/backend-auth
+        handleGoogleSignInSuccess = (googleUser) => {
 
-    networker.login(payload).then(r => {
-      setAuthedToken(token);
-    }).catch(e => {
-      console.log(`Unable to log in with Google: ${JSON.stringify(e)}`);
-    });
-  }
+            const token = googleUser.getAuthResponse().id_token,
+                profile = googleUser.getBasicProfile(),
 
-  useEffect(() => {
-    if (addedEventListener) {
-      return;
-    }
+                payload = {
+                    "metadata": {
+                        "name": profile.getName(),
+                        "image": profile.getImageUrl(),
+                        "email": profile.getEmail()
+                    },
+                    token,
+                    "googleId": profile.getId()
+                };
 
-    setTimeout(() => {
-      setSplashAnimationCompleted(true);
-    }, splashAnimationDuration);
+            networker.login(payload).then((r) => {
 
-    setAddedEventListener(true);
-    // window.addEventListener("SundialGoogleSignIn", (event) => {
-    //   const googleUser = event.detail;
-    //   handleGoogleSignInSuccess(googleUser);
-    // });
-  }, [handleGoogleSignInSuccess, setAuthedToken, splashAnimationCompleted, setSplashAnimationCompleted]);
+                setAuthedToken(token);
 
-  return (
-    <div className={classes.root}>
-      { !authedToken ? unauthedContent : authedContent }
-      { !splashAnimationCompleted ? splashContent : '' }
-    </div>
-  );
+            }).
+                catch((e) => {
+
+                    console.log(`Unable to log in with Google: ${JSON.stringify(e)}`);
+
+                });
+
+        };
+
+    useEffect(
+        () => {
+
+            if (addedEventListener) {
+
+                return;
+
+            }
+
+            setAddedEventListener(true);
+
+            setTimeout(
+                () => {
+
+                    setSplashAnimationCompleted(true);
+
+                },
+                splashAnimationDuration
+            );
+
+            /*
+             * Window.addEventListener("SundialGoogleSignIn", (event) => {
+             *   const googleUser = event.detail;
+             *   handleGoogleSignInSuccess(googleUser);
+             * });
+             */
+
+        },
+        [
+            addedEventListener,
+            setAddedEventListener,
+            setSplashAnimationCompleted
+        ]
+    );
+
+    return (
+        <div className={classes.root}>
+            { !authedToken ? unauthedContent : authedContent }
+            { !splashAnimationCompleted ? splashContent : "" }
+        </div>
+    );
+
 }

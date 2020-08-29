@@ -1,67 +1,72 @@
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import React, {useEffect} from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 
-import moment from 'moment';
+import moment from "moment";
 
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
-import SundialAgendaTodoListCell from './SundialAgendaTodoListCell';
-import SundialAgendaTodoListEmpty from './SundialAgendaTodoListEmpty';
-import SundialAgendaTodoListHeader from './SundialAgendaTodoListHeader';
+import SundialAgendaTodoListCell from "./SundialAgendaTodoListCell";
+import SundialAgendaTodoListEmpty from "./SundialAgendaTodoListEmpty";
+import SundialAgendaTodoListHeader from "./SundialAgendaTodoListHeader";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    minWidth: '320px',
+    "root": {
+        "minWidth": "320px",
 
-    '& > *': {
-      transform: 'rotate(180deg)'
+        "& > *": {
+            "transform": "rotate(180deg)"
+        },
+
+        "& > * > *": {
+            "transform": "rotate(180deg)"
+        }
     },
+    "paper": {
+        "background": ""
+    },
+    "content": {
+        "overflow": "hidden",
+        "textAlign": "center",
+        "minHeight": "calc(100vh - 60px)"
+    },
+    "todoListSection": {
+        "marginLeft": 12,
+        "marginRight": 12,
+        "marginTop": 6,
+        "marginBottom": 8,
+        "textAlign": "left",
 
-    '& > * > *': {
-      transform: 'rotate(180deg)'
+        "& > *": {
+            "margin": 6
+        }
     }
-  },
-  paper: {
-    background: ''
-  },
-  content: {
-    overflow: 'hidden',
-    textAlign: 'center',
-    minHeight: 'calc(100vh - 60px)',
-  },
-  todoListSection: {
-    marginLeft: 12,
-    marginRight: 12,
-    marginTop: 6,
-    marginBottom: 8,
-    textAlign: 'left',
-
-    '& > *': {
-      margin: 6,
-    }
-  }
 }));
 
-export default function SundialAgendaTodoList({ selectedDate, items, onItemEditSubmit, onItemClick }) {
-  const classes = useStyles();
+export default function SundialAgendaTodoList ({selectedDate, items, onItemEditSubmit, onItemClick}) {
 
-  const handleCheckboxClick = (item, checked) => {
-    if (!item.metadata) {
-      item.metadata = { checked: checked };
-    } else {
-      item.metadata.checked = checked;
-    }
+    const classes = useStyles(),
 
-    onItemEditSubmit(item);
-  }
-  
-  const todoListContent = !items || items.length < 1 ? (
-    <SundialAgendaTodoListEmpty />
-  ) : (
-    <div className={classes.todoListSection}>
-      { items.map(i => {
-        return (
+        handleCheckboxClick = (item, checked) => {
+
+            if (!item.metadata) {
+
+                item.metadata = {checked};
+
+            } else {
+
+                item.metadata.checked = checked;
+
+            }
+
+            onItemEditSubmit(item);
+
+        },
+
+        todoListContent = !items || items.length < 1
+            ? <SundialAgendaTodoListEmpty />
+            : (<div className={classes.todoListSection}>
+                { items.map((i) => 
           <div>
             <SundialAgendaTodoListCell
               item={ i }
@@ -70,23 +75,25 @@ export default function SundialAgendaTodoList({ selectedDate, items, onItemEditS
               onCheckboxClick={ handleCheckboxClick }
             />
           </div>
-        );
-      }) }
-    </div>
-  );
+        ) }
+            </div>);
+    return (
+        <div className={classes.root}>
+            <Paper
+                className={classes.paper}
+                elevation={4}
+                square
+            >
+                <div className={classes.content}>
+                    <SundialAgendaTodoListHeader
+                        date={selectedDate}
+                        itemCount={items ? items.length : 0}
+                    />
 
-  return (
-    <div className={ classes.root }>
-      <Paper elevation={4} square className={ classes.paper }>
-        <div className={ classes.content }>
-          <SundialAgendaTodoListHeader
-            date={ selectedDate }
-            itemCount={ items ? items.length : 0 }
-          />
-
-          { todoListContent }
+                    { todoListContent }
+                </div>
+            </Paper>
         </div>
-      </Paper>
-    </div>
-  );
+    );
+
 }
