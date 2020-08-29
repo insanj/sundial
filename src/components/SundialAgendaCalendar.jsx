@@ -57,10 +57,10 @@ const useStyles = makeStyles((theme) => ({
       color: 'rgba(220, 231, 117, 1.0)',
       fontWeight: 700,
 
-      '& > *:not(:nth-child(1))': {
-        background: theme.palette.secondary.main,
-        color: '#414241'
-      }
+      // '& > *:not(:nth-child(n))': {
+      //   background: theme.palette.secondary.main,
+      //   color: '#414241'
+      // }
     },
 
     // '& > tbody > tr > td:nth-child(3), td:nth-child(5)': {
@@ -117,10 +117,26 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     background: 'rgba(255,255,255,0.1)'
+  },
+  unreadBadge: {
+    position: 'absolute',
+    right: 5,
+    top: 4,
+
+    paddingTop: 2,
+    paddingRight: 1,
+
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+
+    fontSize: '0.8rem',
+    color: '#424242',
+    background: theme.palette.secondary.main
   }
 }));
 
-export default function SundialAgendaCalendar({ selectedDate, onDateClick }) {
+export default function SundialAgendaCalendar({ selectedDate, datesToUnreadItems, onDateClick }) {
   const classes = useStyles();
     
   const handleCellClick = (day) => {
@@ -128,6 +144,23 @@ export default function SundialAgendaCalendar({ selectedDate, onDateClick }) {
   }
 
   const monthTitle = moment(selectedDate).format("MMMM");
+
+  // const generateArrayOfUnreadItemIds = () => {
+  //   if (!datesToUnreadItems) {
+  //     return [];
+  //   }
+
+  //   let unreadIds = [];
+  //   for (let key of Object.keys(datesToUnreadItems)) {
+  //     let array = datesToUnreadItems[key];
+  //     let arrayOfIds = array.map(i => i.id);
+  //     unreadIds = unreadIds.concat(arrayOfIds);
+  //   }
+
+  //   return unreadIds;
+  // }
+
+  // const unreadItemIds = generateArrayOfUnreadItemIds();
 
   const generateDays = (count=6) => {
     if (count % 2 !== 0) {
@@ -160,9 +193,25 @@ export default function SundialAgendaCalendar({ selectedDate, onDateClick }) {
     const dayText = moment(day).format('D');
     const fullDateText = moment(day).format('MMMM Do, YYYY');
     const headerText = moment(day).format('dd').charAt(0);
+    
+    let unreadBadge = '';
+    if (datesToUnreadItems) {
+      const unreadDateFormatDate = moment(day).format('YYYY-MM-DD');
+      let unreadDates = datesToUnreadItems[unreadDateFormatDate];
+      if (unreadDates && unreadDates.length > 0) {
+        const unreadCount = unreadDates.length;
+        unreadBadge = (
+          <div className={classes.unreadBadge}>
+            { unreadCount }
+          </div>
+        );
+      }
+    }
+
     return (
       <Tooltip arrow title={fullDateText}>
         <td className={classes.cell} onClick={ () => handleCellClick(day) }>
+          { unreadBadge }
           <div className={classes.legendCell}>
             { headerText }
           </div>

@@ -10,13 +10,22 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'inline-block',
     cursor: 'pointer',
+
   },
   content: {
     paddingLeft: 0,
     paddingRight: 10,
+    verticalAlign: 'middle',
   },
   title: {
-    display: 'inline-block'
+    display: 'inline-block',
+    verticalAlign: 'middle',
+
+    fontSize: '1.8rem',
+
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingRight: 4,
   }
 }));
 

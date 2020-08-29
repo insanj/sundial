@@ -62,12 +62,14 @@ export default function SundialAgendaTodoList({ selectedDate, items, onItemEditS
     <div className={classes.todoListSection}>
       { items.map(i => {
         return (
-          <SundialAgendaTodoListCell
-            item={ i }
-            onClick={ onItemClick }
-            checked={ i.metadata && i.metadata.checked ? i.metadata.checked === "true" : false }
-            onCheckboxClick={ handleCheckboxClick }
-          />
+          <div>
+            <SundialAgendaTodoListCell
+              item={ i }
+              onClick={ onItemClick }
+              checked={ i.metadata && i.metadata.checked ? i.metadata.checked === "true" : false }
+              onCheckboxClick={ handleCheckboxClick }
+            />
+          </div>
         );
       }) }
     </div>

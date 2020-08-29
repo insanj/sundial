@@ -152,6 +152,37 @@ export default function SundialAgendaPage({ networker, token }) {
     return searched;
   }
 
+  const getDatesToUnreadItemsForSelectedDate = () => {
+    if (!loadedTodoListItems || loadedTodoListItems.length < 1) {
+      return loadedTodoListItems;
+    }
+
+    let datesToUnread = {};
+    let dateFormat = 'YYYY-MM-DD';
+
+    for (let item of loadedTodoListItems) {
+      const dateMoment = moment(item.date);
+      const dateKey = dateMoment.format(dateFormat);
+      
+      let isUnread = !item.metadata || !item.metadata.checked || item.metadata.checked !== "true";
+
+      if (isUnread !== true) {
+        continue;
+      } 
+
+      let existing = datesToUnread[dateKey];
+      if (existing) {
+        existing.push(item);
+        datesToUnread[dateKey] = existing;
+      } else {
+        let array = [item];
+        datesToUnread[dateKey] = array;
+      }
+    }
+
+    return datesToUnread;
+  }
+
   const handleSearchInputChange = (newSearchInput) => {
     setSearchInput(newSearchInput);
   }
@@ -192,7 +223,8 @@ export default function SundialAgendaPage({ networker, token }) {
     setIsNewTodoDialogOpen(true);
   }
 
-  const handleNewTodoDialogTextAreaInputChange = (event) => {    setNewTodoDialogTextAreaValue(event.target.value);
+  const handleNewTodoDialogTextAreaInputChange = (event) => {
+    setNewTodoDialogTextAreaValue(event.target.value);
   }
 
   const handleNewTodoDialogCloseClick = () => {
@@ -304,6 +336,7 @@ export default function SundialAgendaPage({ networker, token }) {
       <div className={classes.calendar}>
         <SundialAgendaCalendar 
           selectedDate={ selectedDate }
+          datesToUnreadItems={ getDatesToUnreadItemsForSelectedDate() }
           onDateClick={ handleCalendarDateClick }
         />
       </div>
