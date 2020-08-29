@@ -70,15 +70,15 @@ export default function SundialAuthFeatureCard({ feature }) {
       <Tilt className="Tilt" options={{ perspective: 800, speed: 800, scale: 1.05 }}>
         <div className={classes.card}>
           <div className="Tilt-inner">
-            <div className={classes.imageContainer}>
+            <div className={classes.imageContainer} key={1}>
               <img className={classes.image} src={ feature.image } />
             </div>
 
-            <div className={classes.title}>
+            <div className={classes.title} key={2}>
               { feature.title }
             </div>
 
-            <div className={classes.body}>
+            <div className={classes.body} key={3}>
               { feature.body }
             </div>
           </div>

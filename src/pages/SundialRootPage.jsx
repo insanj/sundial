@@ -23,10 +23,15 @@ export default function SundialRootPage() {
   const [authedToken, setAuthedToken] = React.useState(null);
   const [addedEventListener, setAddedEventListener] = React.useState(false);
 
+  const handleAuthGoogleSuccess = (user) => {
+    handleGoogleSignInSuccess(user);
+  }
+
   const unauthedContent = (
     <div>
       <SundialAuthPage
         networker={ networker }
+        onGoogleSuccess={ handleAuthGoogleSuccess }
       />
     </div>
   );
@@ -80,10 +85,10 @@ export default function SundialRootPage() {
     }, splashAnimationDuration);
 
     setAddedEventListener(true);
-    window.addEventListener("SundialGoogleSignIn", (event) => {
-      const googleUser = event.detail;
-      handleGoogleSignInSuccess(googleUser);
-    });
+    // window.addEventListener("SundialGoogleSignIn", (event) => {
+    //   const googleUser = event.detail;
+    //   handleGoogleSignInSuccess(googleUser);
+    // });
   }, [handleGoogleSignInSuccess, setAuthedToken, splashAnimationCompleted, setSplashAnimationCompleted]);
 
   return (

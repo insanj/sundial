@@ -215,8 +215,10 @@ export default function SundialAgendaPage({ networker, token }) {
       return;
     }
 
-    const event = new CustomEvent("SundialPleaseSignOut");
-    window.dispatchEvent(event);
+    var auth2 = window.gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      window.location.href = '/';
+    });
   }
 
   const handleFloatingActionButtonClick = () => {

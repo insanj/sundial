@@ -66,9 +66,10 @@ export default function SundialAuthFeaturesGrid({}) {
     <div className={classes.root}>
       <div className={classes.grid}>
 
-        { features.map(f => {
+        { features.map((f, i) => {
           return (
-            <SundialAuthFeatureCard 
+            <SundialAuthFeatureCard
+              key={ i }
               feature={ f }
             />
           );
