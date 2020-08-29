@@ -90,6 +90,12 @@ const useStyles = makeStyles((theme) => ({
       background: 'rgba(94, 53, 177, 0.6) !important'
     },
 
+    '@media (hover: none)': {
+      '&:hover': {
+        background: 'orange'
+      }
+    }
+
     // [theme.breakpoints.down(550)]: {
     //   paddingLeft: 8,
     //   paddingRight: 8,

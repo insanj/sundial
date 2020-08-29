@@ -201,21 +201,20 @@ const useStyles = makeStyles((theme) => ({
     //   transform: 'scale(1.35, 1.35)'
     // },
 
-    // '& > .my-signin2' : {
-    //   background: 'red',
-    //   height: '50px',
-    //   width: '120px',
-    //   marginLeft: 'auto',
-    //   marginRight: 'auto',
-    //   textAlign: 'center',
-    //   transform: 'scale(1.35, 1.35)'
-    // }
+    alignItems: 'middle',
+
+    '& > .g-signin2' : {
+      height: '50px',
+      minWidth: '120px',
+      maxWidth: '240px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      textAlign: 'center',
+    },
   },
 
   connectButton: {
-    fontSize: '1.3rem',
-    padding: 8,
-    marginBottom: 10,
+    transform: 'scale(1.35, 1.35)'
   },
 
   connectHelper: {
@@ -261,8 +260,8 @@ export default function SundialAuthPage({ networker, onGoogleSuccess }) {
 
         window.gapi.signin2.render(sundialGoogleButtonId, {
           'scope': 'profile email',
-          'width': 300,
-          'height': 50,
+          'width': 200,
+          'height': 38,
           'longtitle': true,
           'theme': 'dark',
           'onsuccess': onGoogleSuccess,
@@ -302,7 +301,9 @@ export default function SundialAuthPage({ networker, onGoogleSuccess }) {
         </div>
 
         <div className={classes.connect}>
-          <div id={ sundialGoogleButtonId }></div>
+          <div className={classes.connectButton}><center>
+            <div className="g-signin2" id={ sundialGoogleButtonId }></div>
+          </center></div>
 
           <div className={classes.connectHelper}>
             Use Sundial by signing into your Google account.<br/>By clicking, you agree to the use of <a href="https://policies.google.com/technologies/cookies">cookies</a>.<br/>
