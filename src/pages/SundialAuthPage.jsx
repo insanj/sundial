@@ -257,11 +257,13 @@ export default function SundialAuthPage({ networker, onGoogleSuccess }) {
       return;
     }
 
+    // 1. load the google oauth web library (if available)
     window.gapi.load('auth2', function() {
+      // 2. initialize auth2 instance using our public client ID
       window.gapi.auth2.init({
         client_id: '536519055297-nvagfvf3pjp7rui21aar1cd55khih4vq.apps.googleusercontent.com'
       }).then(auth2 => {
-
+        // 3. render custom sign-in button if things loaded properly
         window.gapi.signin2.render(sundialGoogleButtonId, {
           'scope': 'profile email',
           'width': 200,
@@ -272,17 +274,45 @@ export default function SundialAuthPage({ networker, onGoogleSuccess }) {
           'onfailure': handleGoogleFailure
         });
 
-        // var auth2 = window.gapi.auth2.getAuthInstance();
+        // 4. attach click handler to receive success/failure callbacks on button
         auth2.attachClickHandler(sundialGoogleButtonId, {}, onGoogleSuccess, handleGoogleFailure);
 
-        const currentUser = auth2.currentUser.get();
-        if (currentUser) {
-          currentUser.reloadAuthResponse().then(r => {
-            // console.log(r);
-          }).catch(e => {
-            handleGoogleFailure(e);
-          });
+        // 5. listen for sign-in state changes
+        const signinChanged = function (val) {
+          console.log('Sign In state changed to ', val);
+          // alert(val);
+        };
+        auth2.isSignedIn.listen(signinChanged);
+
+        // 6. listen for user changes
+        const userChanged = function (user) {
+          console.log('User now: ', user);
+          // alert(JSON.stringify(user, undefined, 2));
+          onGoogleSuccess(user);
+        };
+
+        auth2.currentUser.listen(userChanged);
+
+        // 7. sign in the user if they are currently authenticated
+        if (auth2.isSignedIn.get() === true) {
+          auth2.signIn();
         }
+
+        // 8 . get up-to-date values
+        // const signedInUser = auth2.currentUser.get();
+        // if (signedInUser) {
+        //   onGoogleSuccess(signedInUser);
+        // }
+
+        // reauthenticate if token has expired to prevent need to click button (again)
+        // const currentUser = auth2.currentUser.get();
+        // if (currentUser) {
+        //   currentUser.reloadAuthResponse().then(r => {
+        //     // console.log(r);
+        //   }).catch(e => {
+        //     handleGoogleFailure(e);
+        //   });
+        // }
       }).catch(e => {
         console.log(e);
       });
