@@ -6,30 +6,38 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import Tilt from 'react-tilt'
-
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'inline-block',
     cursor: 'pointer',
-
+    display: 'inline-block',
+  },
+  paper: {
   },
   content: {
-    paddingLeft: 0,
+    paddingLeft: 14,
     paddingRight: 10,
     verticalAlign: 'middle',
   },
+  checkbox: {
+    marginLeft: -10,
+    marginTop: 2,
+    display: 'inline-block',
+    verticalAlign: 'top'
+  },
   title: {
     display: 'inline-block',
-    verticalAlign: 'middle',
+    verticalAlign: 'top',
 
     fontSize: '1.8rem',
 
     paddingTop: 4,
     paddingBottom: 4,
     paddingRight: 4,
+    overflowWrap: 'break-word'
+  },
+  itemName: {
   }
 }));
 
@@ -38,7 +46,11 @@ export default function SundialAgendaTodoListCell({ item, checked, onCheckboxCli
 
   const [contextMenuOpenAnchor, setContextMenuOpenAnchor] = React.useState(null);
   
-  const handleClick = () => {
+  const handleClick = (event) => {
+    if (event.target.type === 'checkbox') {
+      return;
+    }
+
     onClick(item);
     // onCheckboxClick(item, !checked);
   }
@@ -63,22 +75,23 @@ export default function SundialAgendaTodoListCell({ item, checked, onCheckboxCli
 
   return (      
     <div className={ classes.root }>
-      <Tilt className="Tilt" options={{ perspective: 900, scale: 1.1 }}>
-        <Paper className={ classes.paper }>
-          <div className="Tilt-inner">
-            <div className={ classes.content } onContextMenu={ handleContextMenuClick }>
+      <Paper className={ classes.paper } elevation={3}>
+        <div className="Tilt-inner">
+          <div className={ classes.content } onClick={ handleClick } onContextMenu={ handleContextMenuClick }>
+            <div className={classes.title}>
               <Checkbox
+                className={classes.checkbox}
                 checked={ checked }
                 onChange={ handleCheckboxClick }
               />
 
-              <div className={classes.title} onClick={ handleClick }>
+              <span>
                 { item.name }
-              </div>
+              </span>
             </div>
           </div>
-        </Paper>
-      </Tilt>
+        </div>
+      </Paper>
 
       <Menu 
         open={ Boolean(contextMenuOpenAnchor) }

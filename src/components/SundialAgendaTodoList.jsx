@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   paper: {
-    background: ''
+    background: theme.palette.background.default,
   },
   content: {
     overflow: 'hidden',
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SundialAgendaTodoList({ selectedDate, items, onItemEditSubmit, onItemClick, onItemDeleteClick, selectedSort, onTodoListSortClick }) {
+export default function SundialAgendaTodoList({ selectedDate, items, onItemEditSubmit, onItemClick, onItemDeleteClick, selectedSort, onTodoListSortClick,  forceAnimationsOff }) {
   const classes = useStyles();
 
   const handleCheckboxClick = (item, checked) => {
@@ -79,13 +79,14 @@ export default function SundialAgendaTodoList({ selectedDate, items, onItemEditS
 
   return (
     <div className={ classes.root }>
-      <Paper elevation={4} square className={ classes.paper }>
+      <Paper elevation={ 1 } square className={ classes.paper }>
         <div className={ classes.content }>
           <SundialAgendaTodoListHeader
             date={ selectedDate }
             itemCount={ items ? items.length : 0 }
             selectedSort={ selectedSort }
             onSortClick={ onTodoListSortClick }
+            forceAnimationsOff={ forceAnimationsOff }
           />
 
           { todoListContent }

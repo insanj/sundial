@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   root: {
+    background: theme.palette.primary.main,
     minWidth: '270px',
   },
 
@@ -383,6 +384,7 @@ export default function SundialAgendaPage({ networker, token }) {
           onItemClick={ handleTodoListItemClick }
           onItemEditSubmit={ handleTodoListItemEditSubmit }
           onItemDeleteClick={ handleEditTodoDialogDeleteClick }
+          forceAnimationsOff={ isEditTodoDialogOpen || isNewTodoDialogOpen }
         />
       </div>
 

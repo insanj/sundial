@@ -2,11 +2,13 @@
 
 html {
   min-width: 250px !important;
+  background: #5e35b1;
 }
 
 
 body {
   min-width: 250px !important;
+  background: #5e35b1;
 }
 
 ::selection {

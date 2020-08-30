@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.60a0c77b.chunk.css",
-    "main.js": "/static/js/main.327ee49a.chunk.js",
-    "main.js.map": "/static/js/main.327ee49a.chunk.js.map",
+    "main.css": "/static/css/main.d1fdc8e3.chunk.css",
+    "main.js": "/static/js/main.07707167.chunk.js",
+    "main.js.map": "/static/js/main.07707167.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.b3c5c8d4.js",
     "runtime-main.js.map": "/static/js/runtime-main.b3c5c8d4.js.map",
     "static/css/2.ed3cbb2b.chunk.css": "/static/css/2.ed3cbb2b.chunk.css",
-    "static/js/2.a5f6266e.chunk.js": "/static/js/2.a5f6266e.chunk.js",
-    "static/js/2.a5f6266e.chunk.js.map": "/static/js/2.a5f6266e.chunk.js.map",
+    "static/js/2.f3a19109.chunk.js": "/static/js/2.f3a19109.chunk.js",
+    "static/js/2.f3a19109.chunk.js.map": "/static/js/2.f3a19109.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.4e86bde4650e8ae6c989e18f7f7b3bb0.js": "/precache-manifest.4e86bde4650e8ae6c989e18f7f7b3bb0.js",
+    "precache-manifest.1dd7e1fb7fca0e62228a0c9f43ca2f68.js": "/precache-manifest.1dd7e1fb7fca0e62228a0c9f43ca2f68.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.ed3cbb2b.chunk.css.map": "/static/css/2.ed3cbb2b.chunk.css.map",
-    "static/css/main.60a0c77b.chunk.css.map": "/static/css/main.60a0c77b.chunk.css.map",
-    "static/js/2.a5f6266e.chunk.js.LICENSE.txt": "/static/js/2.a5f6266e.chunk.js.LICENSE.txt",
+    "static/css/main.d1fdc8e3.chunk.css.map": "/static/css/main.d1fdc8e3.chunk.css.map",
+    "static/js/2.f3a19109.chunk.js.LICENSE.txt": "/static/js/2.f3a19109.chunk.js.LICENSE.txt",
     "static/media/fonts.css": "/static/media/Lato-Regular.2d36b1a9.ttf",
-    "static/media/empty_state.png": "/static/media/empty_state.ef2a6224.png",
+    "static/media/empty_state.png": "/static/media/empty_state.819c5dba.png",
     "static/media/all.css": "/static/media/fa-solid-900.ee09ad75.woff",
     "static/media/noun_Sell Ebook_3293619.svg": "/static/media/noun_Sell Ebook_3293619.3ca08666.svg",
     "static/media/noun_intellectual property right_3293613.svg": "/static/media/noun_intellectual property right_3293613.9fb2ac83.svg",
@@ -25,8 +25,8 @@
   "entrypoints": [
     "static/js/runtime-main.b3c5c8d4.js",
     "static/css/2.ed3cbb2b.chunk.css",
-    "static/js/2.a5f6266e.chunk.js",
-    "static/css/main.60a0c77b.chunk.css",
-    "static/js/main.327ee49a.chunk.js"
+    "static/js/2.f3a19109.chunk.js",
+    "static/css/main.d1fdc8e3.chunk.css",
+    "static/js/main.07707167.chunk.js"
   ]
 }

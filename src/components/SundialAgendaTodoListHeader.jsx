@@ -14,9 +14,9 @@ import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 
-export default function SundialAgendaTodoListHeader({ date, itemCount, selectedSort=-1, onSortClick }) {
+export default function SundialAgendaTodoListHeader({ date, itemCount, selectedSort=-1, onSortClick, forceAnimationsOff=null }) {
   // const [isStrokingDate, setIsStrokingDate] = React.useState(false);
-  const [strokedDate, setStrokedDate] = React.useState(null);
+  const [strokedDate, setStrokedDate] = React.useState(forceAnimationsOff);
   const [moreMenuOpenAnchor, setMoreMenuOpenAnchor] = React.useState(null);
 
   // useEffect(() => {
@@ -140,7 +140,7 @@ export default function SundialAgendaTodoListHeader({ date, itemCount, selectedS
       <div className={classes.bottom}>
         <span>{ day }</span>
         
-        { strokedDate === date ? '' : <div className={classes.underline} onAnimationEnd={ handleUnderlineAnimationEnd }/> }
+        { strokedDate === date || forceAnimationsOff === true ? '' : <div className={classes.underline} onAnimationEnd={ handleUnderlineAnimationEnd }/> }
       </div>
 
 
