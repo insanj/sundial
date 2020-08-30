@@ -4,15 +4,26 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles, withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import EventIcon from '@material-ui/icons/Event';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import moment from 'moment';
+import preval from 'preval.macro';
 
 import sundialLogo from '../img/sundial-800x800.png';
+
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}))(Tooltip);
 
 const useStyles = makeStyles((theme) => ({
   '@keyframes fadeIn': {
@@ -167,19 +178,28 @@ export default function SundialAgendaAppBar({ onLogoClick, onSearchInputChange, 
     </Menu>
   );
 
+  const compileDateString = preval`module.exports = new Date().toLocaleString("en").toLowerCase();`;
+  const versionString = `v${ process.env.REACT_APP_SUNDIAL_TAG } (${ compileDateString })`;
+
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={ onLogoClick }
+          <LightTooltip 
+            placement="right" 
+            title={`Sundial is made with ❤️ from Philly. Click to sign out! You are using ${versionString}`}
           >
-            <img alt="Sundial" src={ sundialLogo } className={classes.menuButtonImage} />
-          </IconButton>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+              onClick={ onLogoClick }
+            >
+              <img alt="Sundial" src={ sundialLogo } className={classes.menuButtonImage} />
+            </IconButton>
+          </LightTooltip>
+
           <Typography className={classes.title} variant="h5" noWrap>
             Sundial
           </Typography>
