@@ -48,9 +48,26 @@ const useStyles = makeStyles((theme) => ({
     }
   },
 
+  '@keyframes backgroundFade': {
+    '0%': {
+      backgroundPosition: '100% 50%'
+    },
+    '50%': {
+      backgroundPosition: '0% 50%'
+    },
+    '100%': {
+      backgroundPosition: '100% 50%'
+    }
+  },
+
   root: {
-    background: theme.palette.primary.main,
     minWidth: '270px',
+
+    background: theme.palette.primary.main,
+    background: 'linear-gradient(-45deg, rgba(131,73,247,1) 0%, rgba(125,71,231,1) 5%, rgba(116,71,203,1) 11%, rgba(114,70,201,1) 23%, rgba(98,57,177,1) 42%, rgba(94,56,170,1) 48%, rgba(94,53,177,1) 52%, rgba(90,61,186,1) 66%, rgba(94,83,187,1) 83%, rgba(98,102,199,1) 100%)',
+
+    backgroundSize: '800% 800%',
+    animation: '$backgroundFade 30s ease infinite alternate',
   },
 
   footer: {
@@ -212,14 +229,37 @@ export default function SundialAgendaPage({ networker, token }) {
   }
 
   const handleCalendarDateClick = (newSelectedDate) => {
-    setSelectedDate(newSelectedDate);
+    const mapRangeToRange =  (x, in_min, in_max, out_min, out_max) => {
+      return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
 
     jquery('.SundialAgendaCalendar').animate({
-      opacity: 0.8,
-    }, 200, 'swing', () => {
-      jquery('.SundialAgendaCalendar').animate({
-        opacity: 1.0
-      });
+      opacity: 0.8
+    }, {
+      duration: 400,
+      easing: 'swing',
+      step: (now, tween) => {
+        const boundedNow = Math.min(Math.max(now, 0.8), 1.0);
+        const transformVal = 400 - mapRangeToRange(boundedNow, 0.8, 1.0, 0.0, 400.0);
+        const transformCSSVal = `translate(0px, -${transformVal}px)`;
+        jquery('.SundialAgendaCalendar').css('transform', transformCSSVal);
+      },
+      always: () => {
+        setSelectedDate(newSelectedDate);
+
+        jquery('.SundialAgendaCalendar').animate({
+          opacity: 1.0
+        }, {
+          duration: 400,
+          easing: 'swing',
+          step: (now, tween) => {
+            const boundedNow = Math.min(Math.max(now, 0.8), 1.0);
+            const transformVal = 400 - mapRangeToRange(boundedNow, 0.8, 1.0, 0.0, 400.0);
+            const transformCSSVal = `translate(0px, -${transformVal}px)`;
+            jquery('.SundialAgendaCalendar').css('transform', transformCSSVal);
+          },
+        });
+      }
     });
   }
 
