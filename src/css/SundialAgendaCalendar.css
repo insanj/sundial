@@ -1,0 +1,7 @@
+
+
+@media (hover: hover) {
+  .SundialAgendaCalendarCell:hover {
+    background: rgba(94, 53, 177, 0.6) !important;
+  }
+}

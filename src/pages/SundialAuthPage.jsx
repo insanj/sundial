@@ -294,9 +294,9 @@ export default function SundialAuthPage({ networker, onGoogleSuccess }) {
         auth2.currentUser.listen(userChanged);
 
         // 7. sign in the user if they are currently authenticated
-        if (auth2.isSignedIn.get() === true) {
-          auth2.signIn();
-        }
+        // if (auth2.isSignedIn.get() === true) {
+          // auth2.signIn();
+        // }
 
         // 8 . get up-to-date values
         // const signedInUser = auth2.currentUser.get();

@@ -4,6 +4,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import moment from 'moment';
 
+import '../css/SundialAgendaCalendar.css';
+
 const useStyles = makeStyles((theme) => ({
   '@keyframes fadeIn': {
     '0%': {
@@ -86,13 +88,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.9rem',
 
     transition: '0.2s ease',
-    '&:hover': {
-      background: 'rgba(94, 53, 177, 0.6) !important'
-    },
 
-    '@media (hover: none)': {
-        background: 'inherit'
-    }
 
     // [theme.breakpoints.down(550)]: {
     //   paddingLeft: 8,
@@ -142,12 +138,12 @@ const useStyles = makeStyles((theme) => ({
     "background": theme.palette.secondary.main,
 
     [theme.breakpoints.down(450)]: {
-        "fontSize": "0.7rem",
-        "fontWeight": 500,
-        "width": 14,
-        "height": 14,
-        "paddingTop": 0,
-        "paddingRight": 0
+      "fontSize": "0.7rem",
+      "fontWeight": 500,
+      "width": 14,
+      "height": 14,
+      "paddingTop": 0,
+      "paddingRight": 0
     }
   }
 }));
@@ -226,7 +222,7 @@ export default function SundialAgendaCalendar({ selectedDate, datesToUnreadItems
 
     return (
       <Tooltip arrow title={fullDateText}>
-        <td className={classes.cell} onClick={ () => handleCellClick(day) }>
+        <td className={ `${classes.cell} SundialAgendaCalendarCell` } onClick={ () => handleCellClick(day) }>
           { unreadBadge }
           <div className={classes.legendCell}>
             { headerText }
