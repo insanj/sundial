@@ -91,9 +91,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     '@media (hover: none)': {
-      '&:hover': {
-        background: 'orange'
-      }
+        background: 'inherit'
     }
 
     // [theme.breakpoints.down(550)]: {

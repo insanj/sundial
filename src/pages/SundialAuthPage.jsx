@@ -253,6 +253,10 @@ export default function SundialAuthPage({ networker, onGoogleSuccess }) {
       console.log(e);
     }
 
+    if (!window.gapi) {
+      return;
+    }
+
     window.gapi.load('auth2', function() {
       window.gapi.auth2.init({
         client_id: '536519055297-nvagfvf3pjp7rui21aar1cd55khih4vq.apps.googleusercontent.com'

@@ -242,10 +242,12 @@ export default function SundialAgendaPage({ networker, token }) {
       return;
     }
 
-    var auth2 = window.gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      window.location.href = '/';
-    });
+    if (window.gapi) {
+      var auth2 = window.gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        window.location.href = '/';
+      });
+    }
   }
 
   const handleFloatingActionButtonClick = () => {
